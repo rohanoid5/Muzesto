@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Nothing to be translated here-->
+
+    <string-array name="pref_theme_entries">
+        <item>@string/light</item>
+        <item>@string/dark</item>
+        <item>@string/black</item>
+    </string-array>
+
+    <string-array name="pref_theme_values">
+        <item>light</item>
+        <item>dark</item>
+        <item>black</item>
+    </string-array>
+
+    <string-array name="pref_startpage_entries">
+        <item>@string/last_opened</item>
+        <item>@string/songs</item>
+        <item>@string/albums</item>
+        <item>@string/artists</item>
+    </string-array>
+
+    <string-array name="pref_startpage_values">
+        <item>last_opened</item>
+        <item>songs</item>
+        <item>albums</item>
+        <item>artists</item>
+    </string-array>
+
+    <string-array name="pref_units_options">
+        <item>@string/pref_units_label_lay1</item>
+        <item>@string/pref_units_label_lay2</item>
+        <item>@string/pref_units_label_lay3</item>
+        <item>@string/pref_units_label_lay4</item>
+        <item>@string/pref_units_label_lay5</item>
+    </string-array>
+    <string-array name="pref_units_values">
+        <item>@string/pref_units_timber1</item>
+        <item>@string/pref_units_timber2</item>
+        <item>@string/pref_units_timber3</item>
+        <item>@string/pref_units_timber4</item>
+        <item>@string/pref_units_timber5</item>
+    </string-array>
+    
+    <string-array name="pref_colors_options">
+        
+    </string-array>
+    <string-array name="pref_color_values">
+
+    </string-array>
+
+</resources>

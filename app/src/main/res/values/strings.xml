@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="action_settings">Settings</string>
+
+    <string name="accessibility_play">Play</string>
+    <string name="accessibility_pause">Pause</string>
+    <string name="accessibility_next">Next</string>
+    <string name="accessibility_prev">Previous</string>
+    <string name="accessibility_shuffle">Shuffle</string>
+    <string name="accessibility_shuffle_all">Shuffle all</string>
+    <string name="accessibility_repeat">Repeat</string>
+    <string name="accessibility_repeat_all">Repeat all</string>
+    <string name="accessibility_repeat_one">Repeat one</string>
+    <string name="accessibility_queue">Open queue</string>
+    <string name="accessibility_browse">Browse music</string>
+
+    <string name="menu_sort_by">Sort by</string>
+    <string name="sort_order_entry_az">A-Z</string>
+    <string name="sort_order_entry_za">Z-A</string>
+    <string name="sort_order_entry_artist">Artist</string>
+    <string name="sort_order_entry_album">Album</string>
+    <string name="sort_order_entry_year">Year</string>
+    <string name="sort_order_entry_track_number">Track Number</string>
+    <string name="sort_order_entry_duration">Duration</string>
+    <string name="sort_order_entry_date_added">Date added</string>
+    <string name="sort_order_entry_track_list">Track list</string>
+    <string name="sort_order_entry_number_of_songs">Number of songs</string>
+    <string name="sort_order_entry_number_of_albums">Number of albums</string>
+    <string name="sort_order_entry_filename">Filename</string>
+
+    <string name="error_playing_track">Error Playing track</string>
+
+    <string name="playlist_last_added">Last Added</string>
+    <string name="playlist_recently_played">Recently Played</string>
+    <string name="playlist_top_tracks">My Top Tracks</string>
+
+    <string name="timber_source">Report any bugs <u> here </u> </string>
+    <string name="timber_feature_request">Specify any feature request in the Google+ community <u> here </u></string>
+
+    <string name="menu_show_as">View As</string>
+    <string name="menu_show_as_entry_list">List</string>
+    <string name="menu_show_as_entry_grid">Grid</string>
+
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="black">Black</string>
+
+    <string name="last_opened">Last Opened</string>
+
+    <string name="songs">Songs</string>
+    <string name="albums">Albums</string>
+    <string name="artists">Artists</string>
+    <string name="library">Library</string>
+    <string name="playlists">Playlists</string>
+    <string name="playing_queue">Playing Queue</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="help_and_feedback">Help and Feedback</string>
+    <string name="search">Search</string>
+    <string name="action_shuffle_all">Shuffle All</string>
+    <string name="action_equalizer">Equalizer</string>
+    <string name="search_library">Search Library</string>
+
+    <string name="canvas">Canvas</string>
+    <string name="opengl_es">OpenGL ES</string>
+    <string name="title_permissions">Permissions</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="toast_permissions_not_granted">Permissions not granted.</string>
+    <string name="message_permissions"><![CDATA[To allow audio visualization view to process audio stream app needs an access to your <b>Microphone</b>.]]></string>
+    <string name="start_recognition">Start Recognition</string>
+    <string name="stop_recognition">Stop Recognition</string>
+    <string name="start_recording">Start Recording</string>
+    <string name="stop_recording">Stop Recording</string>
+
+    <string name="select_theme">Select Theme</string>
+    <string name="choose_theme_throughout">Choose a theme to be used throughout the app.</string>
+    <string name="choose_start_page">Choose the start page to be displayed on launch.</string>
+    <string name="start_page">Start page</string>
+    <string name="artist_in_grid">Artists in Grid</string>
+    <string name="toggle_artists_grid">Toggle for displaying artists in a 2x2 grid.</string>
+    <string name="toggle_system_animations">Toggle for system animations throughout the app.</string>
+    <string name="system_animations">System animations</string>
+    <string name="toggle_animations">Toggle for Transition animation throughout the app.</string>
+    <string name="animations">Animations</string>
+    <string name="now_playing_selector">Choose a now playing screen from 4 different styles.</string>
+    <string name="personalisation">Personalisation</string>
+    <string name="other">Other</string>
+    <string name="advanced">Advanced</string>
+    <string name="timber_about_opensource">Timber is a open source Music Player developed by Naman Dwivedi.</string>
+    <string name="summary_pause_detach">Toggle for pausing playback when headphone is detached</string>
+    <string name="pause_detach">Pause on Detach</string>
+    <string name="summary_xposed_trackselector">Requires Xposed and XMediaNotificationTrackSelector Xposed module to be installed. This will provide access to playing queue from the notification bar itself.</string>
+    <string name="xposed_trackselector">Playing queue support in notification</string>
+    <string name="currently_selected">Currently Selected</string>
+
+    <string name="dark_theme">Dark Theme</string>
+    <string name="dark_theme_summary">Apply a dark theme throughout the app</string>
+
+    <string name="primary_color">Primary Color</string>
+    <string name="primary_color_summary">Change the primary theme color</string>
+
+    <string name="accent_color">Accent Color</string>
+    <string name="accent_color_summary">Change the accent theme color</string>
+
+    <string name="colored_status_bar">Colored Status Bar</string>
+    <string name="colored_status_bar_summary">Toggle status bar coloring</string>
+
+    <string name="colored_nav_bar">Colored Navigation Bar</string>
+    <string name="colored_nav_bar_summary">Toggle navigation bar coloring</string>
+
+    <string name="count_song"><xliff:g id="count">%d</xliff:g> song</string>
+    <string name="count_songs"><xliff:g id="count">%d</xliff:g> songs</string>
+    <string name="count_album"><xliff:g id="count">%d</xliff:g> album</string>
+    <string name="count_albums"><xliff:g id="count">%d</xliff:g> albums</string>
+    <string name="count_artist"><xliff:g id="count">%d</xliff:g> artist</string>
+    <string name="count_artists"><xliff:g id="count">%d</xliff:g> artists</string>
+
+    <string name="number_song_add_queue"><xliff:g example="1" id="number">%d</xliff:g> song added to the queue.</string>
+    <string name="number_songs_add_queue"><xliff:g example="1" id="number">%d</xliff:g> songs added to the queue.</string>
+    <string name="number_song_add_playlist"><xliff:g example="1" id="number">%d</xliff:g> song added to playlist.</string>
+    <string name="number_songs_add_playlist"><xliff:g example="1" id="number">%d</xliff:g> songs added to playlist.</string>
+
+
+    <!--do not translate these strings-->
+    <string name="app_name" translatable="false">Muzesto</string>
+    <string name="combine_two_strings" translatable="false">%1$s | %2$s</string>
+    <string name="duration_format" translatable="false"><xliff:g id="hours">%1$s</xliff:g> <xliff:g id="minutes">%2$s</xliff:g></string>
+    <string name="durationformatshort" translatable="false"><xliff:g id="format">%2$d:%3$02d</xliff:g></string>
+    <string name="durationformatlong" translatable="false"><xliff:g id="format">%1$d:%2$02d:%3$02d</xliff:g></string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+
+    <!-- Label for metric option in temperature unit preference [CHAR LIMIT=25] -->
+    <string name="pref_units_label_lay1">Less is more</string>
+    <string name="pref_units_label_lay2">Close to default</string>
+    <string name="pref_units_label_lay3">Generic</string>
+    <string name="pref_units_label_lay4">Default</string>
+    <string name="pref_units_label_lay5">Spectrum</string>
+
+    <!-- Key name for temperature unit preference in SharedPreferences [CHAR LIMIT=NONE] -->
+    <string name="pref_units_key" translatable="false">layouts</string>
+    <string name="pref_colors_key" translatable="false">Colors</string>
+
+    <string name="pref_units_timber1" translatable="false">timber1</string>
+    <string name="pref_units_timber2" translatable="false">timber2</string>
+    <string name="pref_units_timber3" translatable="false">timber3</string>
+    <string name="pref_units_timber4" translatable="false">timber4</string>
+    <string name="pref_units_timber5" translatable="false">timber5</string>
+
+    <string name="pref_units_label">Now Playing Screen</string>
+    <string name="pref_colors_label">Spectrum Color</string>
+
+    <string name="artist_doesnt_have_any_songs">This artist doesn\'t have any songs.</string>
+    <string name="equalizer_applied_to_songs_by">Equalizer applied to all songs by</string>
+    <string name="equalizer_applied_to_songs_in">Equalizer applied to all songs in</string>
+    <string name="equalizer_applied_to_all_songs">Equalizer applied to all songs.</string>
+    <string name="album_doesnt_have_any_songs">This album doesn\'t have any songs.</string>
+    <string name="applying_equalizer_to_all_songs">Applying equalizer to all songs...</string>
+    <string name="applying_to">Applying to</string>
+    <string name="error_occurred">An error occurred.</string>
+    <string name="applying_equalizer_to">Applying Equalizer to</string>
+    <string name="pref_color_summery">Choose a background for the Spectrum</string>
+
+</resources>

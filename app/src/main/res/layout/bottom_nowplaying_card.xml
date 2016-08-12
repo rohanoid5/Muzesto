@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/topContainer"
+    android:layout_width="wrap_content"
+    android:layout_height="55dp"
+    android:layout_gravity="top">
+    <!--android:background="?attr/windowBackground"-->
+
+    <com.rohan.app.widgets.SquareImageView
+        android:id="@+id/album_art_nowplayingcard"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentLeft="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_dribble" />
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/album_art_nowplayingcard"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/song_progress_normal"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:maxHeight="5dp"
+            android:progress="30"
+            android:tag="tint_accent_color" />
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="42dp"
+            android:textColor="@color/colorPrimaryLightDefault"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Demons"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/artist"
+            style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:ellipsize="end"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textColor="@color/colorPrimaryLightDefault"
+            android:text="John Doe and Band"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp">
+
+        <com.rohan.app.widgets.PlayPauseButton
+            android:id="@+id/play_pause"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_gravity="center" />
+
+        <View
+            android:id="@+id/play_pause_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+    </FrameLayout>
+</RelativeLayout>

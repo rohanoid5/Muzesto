@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        android:defaultValue="@string/pref_units_label_lay4"
+        android:entries="@array/pref_units_options"
+        android:entryValues="@array/pref_units_values"
+        android:key="@string/pref_units_key"
+        android:title="@string/pref_units_label" />
+
+    <org.xdty.preference.ColorPreference
+        android:key="@string/pref_colors_key"
+        android:title="@string/pref_colors_label"
+        android:summary="@string/pref_color_summery"
+        app:colors="@array/my_colors"
+        app:columns="3"
+        android:defaultValue="@color/background"/>
+
+</PreferenceScreen>
