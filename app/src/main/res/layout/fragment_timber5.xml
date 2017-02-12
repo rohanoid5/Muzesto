@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fab="http://schemas.android.com/tools"
     android:id="@+id/cod_lay">
 
     <ScrollView
@@ -17,9 +18,20 @@
             android:orientation="vertical">
 
             <FrameLayout
+                android:layout_marginTop="20dp"
                 android:id="@+id/headerView"
                 android:layout_width="match_parent"
-                app:layout_heightPercent="35%">
+                app:layout_heightPercent="40%">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="5dp"
+                    app:cardUseCompatPadding="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    app:cardElevation="8dp">
+
 
                 <ImageView
                     android:id="@+id/album_art"
@@ -42,6 +54,33 @@
                     android:theme="@style/Theme.AppCompat"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+                    <!--<android.support.design.widget.FloatingActionButton-->
+                        <!--android:id="@+id/love"-->
+                        <!--android:layout_marginRight="8dp"-->
+                        <!--android:layout_marginBottom="8dp"-->
+                        <!--fab:fab_colorNormal="@color/colorAccent"-->
+                        <!--fab:fab_colorPressed="@color/window_background"-->
+                        <!--fab:fab_colorRipple="@color/widget_pause"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="end|bottom"-->
+                        <!--android:src="@drawable/ic_favorite_border_white_24dp"/>-->
+
+                    <!--<android.support.design.widget.FloatingActionButton-->
+                        <!--android:id="@+id/hate"-->
+                        <!--android:layout_marginRight="8dp"-->
+                        <!--android:layout_marginBottom="8dp"-->
+                        <!--fab:fab_colorNormal="@color/colorAccent"-->
+                        <!--fab:fab_colorPressed="@color/window_background"-->
+                        <!--fab:fab_colorRipple="@color/widget_pause"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="end|bottom"-->
+                        <!--android:src="@drawable/ic_favorite_white_24dp"/>-->
+
+
+                </android.support.v7.widget.CardView>
+
             </FrameLayout>
 
             <LinearLayout
@@ -52,11 +91,11 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:orientation="vertical">
 
-                <android.opengl.GLSurfaceView
-                    android:id="@+id/gl_surface"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center" />
+                <!--<android.opengl.GLSurfaceView-->
+                    <!--android:id="@+id/gl_surface"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="145dp"-->
+                    <!--android:layout_gravity="center" />-->
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -78,7 +117,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="130dp"
-                            android:ellipsize="end"
+                            android:ellipsize="marquee"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:scrollHorizontally="true"
+                            android:scrollbarAlwaysDrawHorizontalTrack="true"
                             android:textColor="@color/light_deep"
                             android:singleLine="true"
                             android:textSize="25sp" />
@@ -164,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:orientation="horizontal"
-                    android:paddingTop="5dp">
+                    android:paddingTop="0dp">
 
                     <net.steamcrafted.materialiconlib.MaterialIconView
                         android:id="@+id/previous"
@@ -175,7 +217,7 @@
                         android:layout_weight="0.6"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:scaleType="center"
-                        app:materialIconColor="?attr/iconColor"
+                        app:materialIconColor="@color/light_deep"
                         app:materialIcon="skip_previous"
                         app:materialIconSize="35dp" />
 
@@ -207,7 +249,7 @@
                         android:layout_weight="0.6"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:scaleType="center"
-                        app:materialIconColor="?attr/iconColor"
+                        app:materialIconColor="@color/light_deep"
                         app:materialIcon="skip_next"
                         app:materialIconSize="35dp" />
                 </LinearLayout>

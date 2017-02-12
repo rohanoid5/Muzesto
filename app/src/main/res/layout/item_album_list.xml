@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:textColor="@color/jet"
                 android:textSize="16sp" />
 
             <TextView
@@ -49,6 +50,7 @@
                 android:ellipsize="end"
                 android:paddingTop="3dp"
                 android:singleLine="true"
+                android:textColor="@color/jet"
                 android:textSize="13sp" />
 
 

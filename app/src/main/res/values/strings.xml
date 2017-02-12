@@ -89,7 +89,7 @@
     <string name="personalisation">Personalisation</string>
     <string name="other">Other</string>
     <string name="advanced">Advanced</string>
-    <string name="timber_about_opensource">Timber is a open source Music Player developed by Naman Dwivedi.</string>
+    <string name="muzesto_about_opensource">Muzesto is an android Music Player Application developed by Rohan Dey.</string>
     <string name="summary_pause_detach">Toggle for pausing playback when headphone is detached</string>
     <string name="pause_detach">Pause on Detach</string>
     <string name="summary_xposed_trackselector">Requires Xposed and XMediaNotificationTrackSelector Xposed module to be installed. This will provide access to playing queue from the notification bar itself.</string>
@@ -200,6 +200,7 @@
     <!-- Key name for temperature unit preference in SharedPreferences [CHAR LIMIT=NONE] -->
     <string name="pref_units_key" translatable="false">layouts</string>
     <string name="pref_colors_key" translatable="false">Colors</string>
+    <string name="pref_switch_key" translatable="false">Floating Widget</string>
 
     <string name="pref_units_timber1" translatable="false">timber1</string>
     <string name="pref_units_timber2" translatable="false">timber2</string>
@@ -220,5 +221,12 @@
     <string name="error_occurred">An error occurred.</string>
     <string name="applying_equalizer_to">Applying Equalizer to</string>
     <string name="pref_color_summery">Choose a background for the Spectrum</string>
+    <string name="pref_switch_label">Floating Widget</string>
+    <string name="sum_list_settings">Choose a Now Playing Screen.</string>
+    <string name="summary_widget">Hide/Unhide Floating Widget.</string>
+    <string name="no_songs_to_skip_to">No Songs to skip to.</string>
+    <string name="pref_switch_label_wave">Waves</string>
+    <string name="summary_waves">Hide/Unhide Waves</string>
+    <string name="pref_switch_wave_key">wave</string>
 
 </resources>

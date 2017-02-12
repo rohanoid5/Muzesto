@@ -54,6 +54,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Pre
         //bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
         bindPreferenceSummaryToValuesInt(findPreference(getString(R.string.pref_colors_key)));
+        bindPreferenceSummaryToValuesBoolean(findPreference(getString(R.string.pref_switch_key)));
+        bindPreferenceSummaryToValuesBoolean(findPreference(getString(R.string.pref_switch_wave_key)));
         MainActivity.audioWidget.hide();
     }
 
@@ -101,6 +103,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Pre
                         .getInt(preference.getKey(), 0));
     }
 
+    private void bindPreferenceSummaryToValuesBoolean(Preference preference) {
+        // Set the listener to watch for value changes.
+        preference.setOnPreferenceChangeListener(this);
+
+        // Trigger the listener immediately with the preference's
+        // current value.
+        onPreferenceChange(preference,
+                PreferenceManager
+                        .getDefaultSharedPreferences(preference.getContext())
+                        .getBoolean(preference.getKey(), true));
+    }
+
     @Override
     public boolean onPreferenceChange(Preference preference, Object value) {
         String stringValue = value.toString();
@@ -115,7 +129,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Pre
             }
         } else {
             // For other preferences, set the summary to the value's simple string representation.
-            preference.setSummary(stringValue);
+            //preference.setSummary(stringValue);
         }
         return true;
     }

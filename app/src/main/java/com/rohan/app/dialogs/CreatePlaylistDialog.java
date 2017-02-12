@@ -11,9 +11,6 @@ import com.rohan.app.MusicPlayer;
 import com.rohan.app.fragments.PlaylistFragment;
 import com.rohan.app.models.Song;
 
-/**
- * Created by naman on 20/12/15.
- */
 public class CreatePlaylistDialog extends DialogFragment {
 
     public static CreatePlaylistDialog newInstance() {

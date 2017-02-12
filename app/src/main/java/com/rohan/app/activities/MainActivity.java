@@ -1,16 +1,3 @@
-/*
- * Copyright (C) 2015 Naman Dwivedi
- *
- * Licensed under the GNU General Public License v3
- *
- * This is free software: you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- */
 
 package com.rohan.app.activities;
 
@@ -61,6 +48,7 @@ import com.rohan.app.permissions.Nammu;
 import com.rohan.app.permissions.PermissionCallback;
 import com.rohan.app.slidinguppanel.SlidingUpPanelLayout;
 import com.rohan.app.utils.Constants;
+import com.rohan.app.utils.Helpers;
 import com.rohan.app.utils.NavigationUtils;
 import com.rohan.app.utils.TimberUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -91,6 +79,8 @@ public class MainActivity extends BaseActivity  {
     TextView songtitle, songartist;
     ImageView albumart;
     String action;
+    boolean floatWidget;
+    SharedPreferences sharedPrefs;
     public static AudioWidget audioWidget;
     private Timer timer;
     private MediaPlayer mediaPlayer;
@@ -264,10 +254,10 @@ public class MainActivity extends BaseActivity  {
             }, 350);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-            startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+//            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+//            startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+//        }
 
         audioWidget = new AudioWidget.Builder(this)
                 .lightColor(ContextCompat.getColor(this, R.color.widget_play))
@@ -275,15 +265,14 @@ public class MainActivity extends BaseActivity  {
                 .progressColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .progressStrokeWidth(25)
                 .expandWidgetColor(ContextCompat.getColor(this, R.color.colorAccent))
-                .playlistDrawable(ContextCompat.getDrawable(this, R.drawable.ic_audiotrack_white_24dp))
-                .defaultAlbumDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_co))
+                .defaultAlbumDrawable(ContextCompat.getDrawable(this, R.mipmap.ic_music_anyway))
                 .crossColor(ContextCompat.getColor(this, R.color.colorAccent))
                 .crossOverlappedColor(ContextCompat.getColor(this, R.color.widget_pause))
-                .playDrawable(ContextCompat.getDrawable(this, R.drawable.ic_play_arrow_black_24dp))
-                .pauseDrawable(ContextCompat.getDrawable(this, R.drawable.ic_pause_black_24dp))
-                .playlistDrawable(ContextCompat.getDrawable(this, R.drawable.ic_playlist_play_black_24dp))
-                .prevTrackDrawale(ContextCompat.getDrawable(this, R.drawable.ic_skip_previous_black_24dp))
-                .nextTrackDrawable(ContextCompat.getDrawable(this, R.drawable.ic_skip_next_black_24dp))
+                .playDrawable(ContextCompat.getDrawable(this, R.drawable.ic_play_arrow_white_24dp))
+                .pauseDrawable(ContextCompat.getDrawable(this, R.drawable.ic_pause_white_24dp))
+                .playlistDrawable(ContextCompat.getDrawable(this, R.drawable.ic_playlist_play_white_24dp))
+                .prevTrackDrawale(ContextCompat.getDrawable(this, R.drawable.ic_skip_previous_white_24dp))
+                .nextTrackDrawable(ContextCompat.getDrawable(this, R.drawable.ic_skip_next_white_24dp))
                 .progressColor(ContextCompat.getColor(this, R.color.widget_play))
                 .build();
 
@@ -293,8 +282,12 @@ public class MainActivity extends BaseActivity  {
         stopTrackingPosition();
         startTrackingPosition();*/
 
-        if (!audioWidget.isShown()) {
-            audioWidget.show(preferences.getInt(KEY_POSITION_X, 100), preferences.getInt(KEY_POSITION_Y, 100));
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        floatWidget = sharedPrefs.getBoolean(getString(R.string.pref_switch_key), true);
+
+        if (floatWidget) {
+//            audioWidget.show(preferences.getInt(KEY_POSITION_X, 100), preferences.getInt(KEY_POSITION_Y, 100));
+            floatWidget = false;
         }
         audioWidget.controller().onControlsClickListener(new AudioWidget.OnControlsClickListener() {
 
@@ -455,11 +448,14 @@ public class MainActivity extends BaseActivity  {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(this)) {
-                // now you can show audio widget
-            }
-        }
+//        if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
+////            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(this)) {
+////                // now you can show audio widget
+//////                if (!audioWidget.isShown()) {
+//////                    audioWidget.show(preferences.getInt(KEY_POSITION_X, 100), preferences.getInt(KEY_POSITION_Y, 100));
+//////                }
+////            }
+//        }
     }
 
 
@@ -512,20 +508,13 @@ public class MainActivity extends BaseActivity  {
         //set icons manually for now
         //https://github.com/code-mc/material-icon-lib/issues/15
 
-        if (!isDarkTheme) {
+
             navigationView.getMenu().findItem(R.id.nav_library).setIcon(R.drawable.library_music);
             navigationView.getMenu().findItem(R.id.nav_playlists).setIcon(R.drawable.playlist_play);
             navigationView.getMenu().findItem(R.id.nav_queue).setIcon(R.drawable.music_note);
             navigationView.getMenu().findItem(R.id.nav_nowplaying).setIcon(R.drawable.bookmark_music);
             navigationView.getMenu().findItem(R.id.nav_settings).setIcon(R.drawable.settings);
             navigationView.getMenu().findItem(R.id.nav_about).setIcon(R.drawable.information);
-        } else {
-            navigationView.getMenu().findItem(R.id.nav_library).setIcon(R.drawable.library_music_white);
-            navigationView.getMenu().findItem(R.id.nav_playlists).setIcon(R.drawable.playlist_play_white);
-            navigationView.getMenu().findItem(R.id.nav_queue).setIcon(R.drawable.music_note_white);
-            navigationView.getMenu().findItem(R.id.nav_nowplaying).setIcon(R.drawable.bookmark_music_white);
-            navigationView.getMenu().findItem(R.id.nav_about).setIcon(R.drawable.information_white);
-        }
 
     }
 
@@ -549,14 +538,14 @@ public class MainActivity extends BaseActivity  {
 
                 break;
             case R.id.nav_about:
-                /*mDrawerLayout.closeDrawers();
+                mDrawerLayout.closeDrawers();
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         Helpers.showAbout(MainActivity.this);
                     }
-                }, 350);*/
+                }, 350);
 
                 break;
             case R.id.nav_settings:
@@ -602,17 +591,17 @@ public class MainActivity extends BaseActivity  {
     public void onResume() {
         super.onResume();
         sMainActivity = this;
-        if (!audioWidget.isShown()) {
-            audioWidget.show(preferences.getInt(KEY_POSITION_X, 100), preferences.getInt(KEY_POSITION_Y, 100));
-        }
+//        if (!audioWidget.isShown()) {
+//            audioWidget.show(preferences.getInt(KEY_POSITION_X, 100), preferences.getInt(KEY_POSITION_Y, 100));
+//        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (!audioWidget.isShown()) {
-            audioWidget.show(preferences.getInt(KEY_POSITION_X, 100), preferences.getInt(KEY_POSITION_Y, 100));
-        }
+//        if (!audioWidget.isShown()) {
+//            audioWidget.show(preferences.getInt(KEY_POSITION_X, 100), preferences.getInt(KEY_POSITION_Y, 100));
+//        }
     }
 
 //    @Override

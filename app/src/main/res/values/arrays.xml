@@ -48,7 +48,12 @@
         
     </string-array>
     <string-array name="pref_color_values">
-
+        <item>@color/background</item>
+        <item>@color/colorPrimaryDarkTheme</item>
+        <item>@color/dark_grey</item>
+        <item>@color/chocolate</item>
+        <item>@color/blue_grey</item>
+        <item>@color/cyan</item>
     </string-array>
 
 </resources>

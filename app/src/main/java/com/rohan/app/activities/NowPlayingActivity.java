@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 
+import com.jaeger.library.StatusBarUtil;
 import com.rohan.app.R;
 import com.rohan.app.nowplaying.Timber1;
 import com.rohan.app.nowplaying.Timber2;
@@ -29,8 +30,9 @@ public class NowPlayingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nowplaying);
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
+//        StatusBarUtil.setTranslucent(this);
 
-         //setSupportActionBar(mToolbar);
+        //setSupportActionBar(mToolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeButtonEnabled(true);
 

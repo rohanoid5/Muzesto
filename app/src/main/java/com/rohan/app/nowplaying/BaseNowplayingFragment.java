@@ -1,17 +1,3 @@
-/*
- * Copyright (C) 2015 Naman Dwivedi
- *
- * Licensed under the GNU General Public License v3
- *
- * This is free software: you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- */
-
 package com.rohan.app.nowplaying;
 
 import android.animation.ObjectAnimator;
@@ -71,6 +57,7 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
     ImageView shuffle;
     ImageView repeat;
     MaterialIconView previous, next;
+    FloatingActionButton fabPrevious, fabNext;
     PlayPauseButton mPlayPause;
     PlayPauseDrawable playPauseDrawable = new PlayPauseDrawable();
     FloatingActionButton playPauseFloating;
@@ -209,7 +196,7 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ateKey = Helpers.getATEKey(getActivity());
-        //setStatusBarTranslucent(true);
+        setStatusBarTranslucent(true);
         accentColor = ContextCompat.getColor(getActivity(), R.color.colorAccent);
     }
 
@@ -220,6 +207,8 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
         repeat = (ImageView) view.findViewById(R.id.repeat);
         next = (MaterialIconView) view.findViewById(R.id.next);
         previous = (MaterialIconView) view.findViewById(R.id.previous);
+        fabNext = (FloatingActionButton) view.findViewById(R.id.next_fab);
+        fabPrevious = (FloatingActionButton) view.findViewById(R.id.previous_fab);
         mPlayPause = (PlayPauseButton) view.findViewById(R.id.playpause);
         playPauseFloating = (FloatingActionButton) view.findViewById(R.id.playpausefloating);
         playPauseWrapper = view.findViewById(R.id.playpausewrapper);
@@ -300,6 +289,7 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
 
     }
 
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -326,8 +316,8 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
 
         setSeekBarListener();
 
-        if (next != null) {
-            next.setOnClickListener(new View.OnClickListener() {
+        if (fabNext != null) {
+            fabNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Handler handler = new Handler();
@@ -342,8 +332,8 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
                 }
             });
         }
-        if (previous != null) {
-            previous.setOnClickListener(new View.OnClickListener() {
+        if (fabPrevious != null) {
+            fabPrevious.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Handler handler = new Handler();
@@ -373,7 +363,7 @@ public class BaseNowplayingFragment extends Fragment implements MusicStateListen
     public void updateShuffleState() {
         if (shuffle != null && getActivity() != null) {
             MaterialDrawableBuilder builder = MaterialDrawableBuilder.with(getActivity())
-                    .setIcon(MaterialDrawableBuilder.IconValue.REFRESH)
+                    .setIcon(MaterialDrawableBuilder.IconValue.SHUFFLE)
                     .setSizeDp(30);
 
             if (getActivity() != null) {

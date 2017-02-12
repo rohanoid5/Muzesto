@@ -1,21 +1,9 @@
-/*
- * Copyright (C) 2015 Naman Dwivedi
- *
- * Licensed under the GNU General Public License v3
- *
- * This is free software: you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- */
 
 package com.rohan.app.adapters;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
@@ -101,18 +89,15 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ItemHolder> 
                                             itemHolder.artist.setTextColor(textColor);
                                         }
                                     }
-
-
                                 }
                             });
                         }
-
                     }
 
                     @Override
                     public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                         if (isGrid) {
-                            itemHolder.footer.setBackgroundColor(0);
+                            itemHolder.footer.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccentSwatch));
                             if (mContext != null) {
                                 /*int textColorPrimary = Config.textColorPrimary(mContext, Helpers.getATEKey(mContext));
                                 itemHolder.title.setTextColor(textColorPrimary);
@@ -121,7 +106,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ItemHolder> 
                         }
                     }
                 });
-
+        itemHolder.footer.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccentSwatch));
         if (TimberUtils.isLollipop())
             itemHolder.albumArt.setTransitionName("transition_album_art" + i);
 

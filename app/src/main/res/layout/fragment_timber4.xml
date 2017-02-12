@@ -24,6 +24,7 @@
         <FrameLayout
             android:id="@+id/headerView"
             android:layout_width="match_parent"
+            android:paddingTop="15dp"
             app:layout_heightPercent="70%">
 
 
@@ -103,6 +104,36 @@
                                     android:paddingLeft="5dp"
                                     android:scaleType="center" />
                             </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center"
+                                android:visibility="gone"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:id="@+id/eq"
+                                    android:src="@drawable/ic_graphic_eq_white_24dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:clickable="true"
+                                    android:background="?attr/selectableItemBackground"/>
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:id="@+id/songs"
+                                    android:src="@drawable/ic_album_white_24dp"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:clickable="true"
+                                    android:background="?attr/selectableItemBackground"/>
+
+                            </LinearLayout>
+
                         </LinearLayout>
 
                     </FrameLayout>
@@ -110,7 +141,6 @@
                     <com.rohan.app.widgets.CircularSeekBar
                         android:id="@+id/song_progress_circular"
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:layout_centerInParent="true"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
                         android:maxHeight="1dp"
@@ -123,7 +153,9 @@
                         app:pointer_color="?attr/accentColor"
                         app:pointer_halo_border_width="1.5"
                         app:pointer_halo_color="?attr/accentColor"
-                        app:pointer_halo_width="0.5" />
+                        app:pointer_halo_width="0.5"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
 
                 </android.support.percent.PercentRelativeLayout>
             </LinearLayout>
@@ -134,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:layout_marginTop="0dp"
-                android:background="@color/colorAccent"
+                android:background="@android:color/transparent"
                 android:theme="@style/Theme.AppCompat"
                 app:popupTheme="@style/AppTheme">
 
@@ -180,8 +212,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/headerView"
             android:layout_gravity="center_horizontal|center_vertical"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:paddingTop="5dp">
+            android:paddingTop="0dp">
 
             <net.steamcrafted.materialiconlib.MaterialIconView
                 android:id="@+id/previous"
@@ -191,10 +224,23 @@
                 android:layout_marginLeft="30dp"
                 android:layout_weight="0.6"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:scaleType="center"
+                android:visibility="gone"
                 app:materialIcon="skip_previous"
                 app:materialIconColor="#ffffff"
                 app:materialIconSize="35dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/previous_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="0.6"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@drawable/ic_skip_previous_white_36dp" />
 
             <FrameLayout
                 android:layout_width="75dp"
@@ -215,6 +261,17 @@
                     android:tag="bg_tint_accent_color" />
             </FrameLayout>
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/next_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="0dp"
+                android:layout_weight="0.6"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@drawable/ic_skip_next_white_36dp" />
+
             <net.steamcrafted.materialiconlib.MaterialIconView
                 android:id="@+id/next"
                 android:layout_width="48dp"
@@ -223,17 +280,49 @@
                 android:layout_marginRight="30dp"
                 android:layout_weight="0.6"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 android:scaleType="center"
+                android:visibility="gone"
                 app:materialIcon="skip_next"
                 app:materialIconColor="#ffffff"
                 app:materialIconSize="35dp" />
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/queue_recyclerview_horizontal"
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/circular_switch"
+            android:layout_above="@id/card_view">
+
+        </FrameLayout>
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/card_view"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_alignParentBottom="true" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            card_view:cardCornerRadius="2dp"
+            card_view:cardUseCompatPadding="true">
+
+            <android.opengl.GLSurfaceView
+                android:id="@+id/gl_surface"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:visibility="invisible" />
+
+            <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/queue_recyclerview_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:visibility="visible" />
+
+        </android.support.v7.widget.CardView>
 
     </android.support.percent.PercentRelativeLayout>
 

@@ -57,11 +57,11 @@ public class Helpers {
 
     public static class AboutDialog extends DialogFragment {
 
-        String urlgooglelus = "https://plus.google.com/u/0/+NamanDwivedi14";
-        String urlcommunity = "https://plus.google.com/communities/111029425713454201429";
-        String urltwitter = "https://twitter.com/naman1405";
-        String urlgithub = "https://github.com/naman14";
-        String urlsource = "https://github.com/naman14/Timber/issues";
+        String urlgooglelus = "https://plus.google.com/+RohanDeyrohanoid5/posts";
+        String urlcommunity = "rohanoid5@gmail.com";
+        String urltwitter = "https://twitter.com/rd09053528";
+//        String urlgithub = "https://github.com/naman14";
+//        String urlsource = "https://github.com/naman14/Timber/issues";
 
         public AboutDialog() {
         }
@@ -77,9 +77,9 @@ public class Helpers {
 
             TextView googleplus = (TextView) aboutBodyView.findViewById(R.id.googleplus);
             TextView twitter = (TextView) aboutBodyView.findViewById(R.id.twitter);
-            TextView github = (TextView) aboutBodyView.findViewById(R.id.github);
+//            TextView github = (TextView) aboutBodyView.findViewById(R.id.github);
             TextView source = (TextView) aboutBodyView.findViewById(R.id.source);
-            TextView community = (TextView) aboutBodyView.findViewById(R.id.feature_request);
+//            TextView community = (TextView) aboutBodyView.findViewById(R.id.feature_request);
 
             TextView dismiss = (TextView) aboutBodyView.findViewById(R.id.dismiss_dialog);
             dismiss.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +90,7 @@ public class Helpers {
             });
             googleplus.setPaintFlags(googleplus.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
             twitter.setPaintFlags(twitter.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-            github.setPaintFlags(github.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+//            github.setPaintFlags(github.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
             googleplus.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -110,36 +110,36 @@ public class Helpers {
                 }
 
             });
-            github.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(urlgithub));
-                    startActivity(i);
-                }
-
-            });
-            source.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(urlsource));
-                    startActivity(i);
-                }
-            });
-            community.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(urlcommunity));
-                    startActivity(i);
-                }
-            });
+//            github.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent i = new Intent(Intent.ACTION_VIEW);
+//                    i.setData(Uri.parse(urlgithub));
+//                    startActivity(i);
+//                }
+//
+//            });
+//            source.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent i = new Intent(Intent.ACTION_VIEW);
+//                    i.setData(Uri.parse(urlsource));
+//                    startActivity(i);
+//                }
+//            });
+//            community.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent i = new Intent(Intent.ACTION_VIEW);
+//                    i.setData(Uri.parse(urlcommunity));
+//                    startActivity(i);
+//                }
+//            });
             try {
                 PackageInfo pInfo = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0);
                 String version = pInfo.versionName;
                 int versionCode = pInfo.versionCode;
-                appversion.setText("Timber " + version);
+                appversion.setText("Muzesto ");
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }

@@ -16,8 +16,10 @@ package com.rohan.app.fragments;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -36,7 +38,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
+import com.cleveroad.audiovisualization.AudioVisualization;
+import com.cleveroad.audiovisualization.DbmHandler;
+import com.cleveroad.audiovisualization.VisualizerDbmHandler;
 import com.rohan.app.R;
+import com.rohan.app.listeners.MusicStateListener;
 import com.rohan.app.utils.ATEUtils;
 import com.rohan.app.utils.Helpers;
 import com.rohan.app.utils.PreferencesUtility;
@@ -44,12 +50,13 @@ import com.rohan.app.utils.PreferencesUtility;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements MusicStateListener {
 
     PreferencesUtility mPreferences;
     ViewPager viewPager;
     private static final int REQUEST_CODE = 1;
     private boolean shouldOpenFragment;
+    private AudioVisualization audioVisualization;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -66,33 +73,6 @@ public class MainFragment extends Fragment {
         View rootView = inflater.inflate(
                 R.layout.fragment_main, container, false);
 
-        /*if (savedInstanceState == null) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.RECORD_AUDIO)
-                    || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.MODIFY_AUDIO_SETTINGS)) {
-                AlertDialog.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == DialogInterface.BUTTON_POSITIVE) {
-                            requestPermissions();
-                        } else if (which == DialogInterface.BUTTON_NEGATIVE) {
-                            permissionsNotGranted();
-                        }
-                    }
-                };
-                new AlertDialog.Builder(getActivity())
-                        .setTitle(getString(R.string.title_permissions))
-                        .setMessage(Html.fromHtml(getString(R.string.message_permissions)))
-                        .setPositiveButton(getString(R.string.btn_next), onClickListener)
-                        .setNegativeButton(getString(R.string.btn_cancel), onClickListener)
-                        .show();
-            } else {
-                requestPermissions();
-            }
-
-        }*/
-
-
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
@@ -100,7 +80,8 @@ public class MainFragment extends Fragment {
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
-
+        audioVisualization = (AudioVisualization) rootView.findViewById(R.id.visualizer);
+        audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
         if (viewPager != null) {
             setupViewPager(viewPager);
@@ -108,7 +89,13 @@ public class MainFragment extends Fragment {
         }
 
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
+        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
         tabLayout.setupWithViewPager(viewPager);
+
+//        tabLayout.getTabAt(0).setIcon(R.drawable.ic_audiotrack_white_24dp);
+//        tabLayout.getTabAt(1).setIcon(R.drawable.ic_album_white_24dp);
+//        tabLayout.getTabAt(2).setIcon(R.drawable.ic_sentiment_satisfied_white_24dp);
 
         return rootView;
 
@@ -127,32 +114,10 @@ public class MainFragment extends Fragment {
         getActivity().finish();
     }
 
-   /* @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE) {
-            boolean bothGranted = true;
-            for (int i = 0; i < permissions.length; i++) {
-                if (Manifest.permission.RECORD_AUDIO.equals(permissions[i]) || Manifest.permission.MODIFY_AUDIO_SETTINGS.equals(permissions[i])) {
-                    bothGranted &= grantResults[i] == PackageManager.PERMISSION_GRANTED;
-                }
-            }
-            if (bothGranted) {
-                shouldOpenFragment = true;
-            } else {
-                permissionsNotGranted();
-            }
-        }
-    }*/
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        /*if (PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("dark_theme", false)) {
-            ATE.apply(this, "dark_theme");
-        } else {
-            ATE.apply(this, "light_theme");
-        }*/
+        audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
         viewPager.setCurrentItem(mPreferences.getStartPageIndex());
     }
 
@@ -165,24 +130,44 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        if (mPreferences.lastOpenedIsStartPagePreference()) {
-            mPreferences.setStartPageIndex(viewPager.getCurrentItem());
-        }
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        String ateKey = Helpers.getATEKey(getActivity());
-        //ATEUtils.setStatusBarColor(getActivity(), ateKey, Config.primaryColor(getActivity(), ateKey));
+        audioVisualization.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        audioVisualization.onPause();
+        if (mPreferences.lastOpenedIsStartPagePreference()) {
+            mPreferences.setStartPageIndex(viewPager.getCurrentItem());
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroyView() {
+        audioVisualization.release();
+        super.onDestroyView();
+    }
+
+    @Override
+    public void restartLoader() {
 
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onPlaylistChanged() {
+
+    }
+
+    @Override
+    public void onMetaChanged() {
+
     }
 
     static class Adapter extends FragmentPagerAdapter {
@@ -193,7 +178,7 @@ public class MainFragment extends Fragment {
             super(fm);
         }
 
-        public void addFragment(Fragment fragment, String title) {
+        void addFragment(Fragment fragment, String title) {
             mFragments.add(fragment);
             mFragmentTitles.add(title);
         }

@@ -29,5 +29,7 @@
     <dimen name="bubble_size">50dp</dimen>
     <dimen name="wave_height">60dp</dimen>
     <dimen name="footer_height">180dp</dimen>
+    <dimen name="appbar_elevation">4dp</dimen>
+    <dimen name="viewpager_width">360dp</dimen>
 
 </resources>

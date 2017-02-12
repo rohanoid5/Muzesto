@@ -1,21 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/apk/res-auto">
 
     <ListPreference
         android:defaultValue="@string/pref_units_label_lay4"
         android:entries="@array/pref_units_options"
         android:entryValues="@array/pref_units_values"
         android:key="@string/pref_units_key"
-        android:title="@string/pref_units_label" />
+        android:title="@string/pref_units_label"
+        android:summary="@string/sum_list_settings"/>
 
-    <org.xdty.preference.ColorPreference
+    <!--<org.xdty.preference.ColorPreference-->
+        <!--android:key="@string/pref_colors_key"-->
+        <!--android:title="@string/pref_colors_label"-->
+        <!--android:summary="@string/pref_color_summery"-->
+        <!--tools:colors="@array/rainbow"-->
+        <!--app:columns="4"-->
+        <!--tools:material="true"-->
+        <!--android:defaultValue="@color/background"/>-->
+
+    <!--<org.xdty.preference.ColorPreference-->
+        <!--android:key="example_color"-->
+        <!--android:title="Color"-->
+        <!--android:summary="This is a color preference"-->
+        <!--tools:dialogTitle="@string/default_color"-->
+        <!--tools:colors="@array/default_rainbow"-->
+        <!--tools:columns="5"-->
+        <!--tools:material="true"-->
+        <!--android:defaultValue="@color/flamingo"/>-->
+
+    <com.rohan.app.widgets.SpectrumPreference
+        android:defaultValue="@color/background"
         android:key="@string/pref_colors_key"
-        android:title="@string/pref_colors_label"
         android:summary="@string/pref_color_summery"
-        app:colors="@array/my_colors"
-        app:columns="3"
-        android:defaultValue="@color/background"/>
+        android:title="@string/pref_colors_label"
+        app:spectrum_colors="@array/rainbow"
+        app:spectrum_outlineWidth="0dp"/>
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/pref_switch_key"
+        android:title="@string/pref_switch_label"
+        android:summary="@string/summary_widget"/>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="@string/pref_switch_wave_key"
+        android:title="@string/pref_switch_label_wave"
+        android:summary="@string/summary_waves"/>
 
 </PreferenceScreen>

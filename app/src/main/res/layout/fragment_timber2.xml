@@ -44,8 +44,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
-                    android:ellipsize="end"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
                     android:scrollHorizontally="true"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
                     android:singleLine="true"
                     android:textColor="#ffffff"
                     android:textSize="21sp" />

@@ -15,6 +15,8 @@
 package com.rohan.app;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.res.Resources;
 
 import com.rohan.app.permissions.Nammu;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -25,6 +27,38 @@ public class TimberApp extends Application {
 
 
     private static TimberApp mInstance;
+    private boolean mIsServiceRunning = false;
+    private MusicService musicService;
+    private Context mContext;
+
+    public boolean isServiceRunning() {
+        return mIsServiceRunning;
+    }
+
+    public MusicService getService() {
+        return musicService;
+    }
+
+    public static int getStatusBarHeight(Context context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+
+        return result;
+    }
+
+    public static int getNavigationBarHeight(Context context) {
+        Resources resources = context.getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return resources.getDimensionPixelSize(resourceId);
+        }
+
+        return 0;
+    }
+
 
     public static synchronized TimberApp getInstance() {
         return mInstance;
@@ -40,6 +74,8 @@ public class TimberApp extends Application {
         L.disableLogging();
         L.writeDebugLogs(false);
         Nammu.init(this);
+
+        mContext = getApplicationContext();
 
         /*if (!ATE.config(this, "light_theme").isConfigured()) {
             ATE.config(this, "light_theme")

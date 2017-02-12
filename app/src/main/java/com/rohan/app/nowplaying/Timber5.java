@@ -17,6 +17,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -33,8 +34,6 @@ import com.yalantis.audio.lib.AudioUtil;
 
 import net.steamcrafted.materialiconlib.MaterialDrawableBuilder;
 
-import org.xdty.preference.colorpicker.ColorPickerDialog;
-import org.xdty.preference.colorpicker.ColorPickerSwatch;
 
 /**
  * Created by rohan on 04-06-2016.
@@ -49,7 +48,7 @@ public class Timber5 extends BaseNowplayingFragment {
     private static final int RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
     private static final int MAX_DECIBELS = 120;
     int mSelectedColor;
-    ColorPickerDialog dialog;
+    boolean visible;
     LinearLayout linLayout;
     CoordinatorLayout codLay;
     int[] mColors;
@@ -92,30 +91,57 @@ public class Timber5 extends BaseNowplayingFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSelectedColor = ContextCompat.getColor(getActivity(), R.color.flamingo);
-        mColors = getResources().getIntArray(R.array.default_rainbow);
-
-        dialog = ColorPickerDialog.newInstance(R.string.color_picker_default_title,
-                mColors,
-                mSelectedColor,
-                5, // Number of columns
-                ColorPickerDialog.SIZE_SMALL);
+//        mSelectedColor = ContextCompat.getColor(getActivity(), R.color.flamingo);
+//        mColors = getResources().getIntArray(R.array.default_rainbow);
+//
+//                dialog = ColorPickerDialog.newInstance(R.string.color_picker_default_title,
+//                        mColors,
+//                        mSelectedColor,
+//                5, // Number of columns
+//                ColorPickerDialog.SIZE_SMALL);
 
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
-                R.layout.fragment_timber5, container, false);
+                R.layout.fragment_timber6, container, false);
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         int colorType = sharedPrefs.getInt(getString(R.string.pref_colors_key), getResources().getColor(R.color.bg2));
 
+//        final FloatingActionButton mLove = (FloatingActionButton) rootView.findViewById(R.id.love);
+//        final FloatingActionButton mHate = (FloatingActionButton) rootView.findViewById(R.id.hate);
 
         linLayout = (LinearLayout) rootView.findViewById(R.id.detailView);
         //linLayout.setBackgroundColor(getResources().getColor(R.color.background));
         codLay = (CoordinatorLayout) rootView.findViewById(R.id.cod_lay);
         codLay.setBackgroundColor(colorType);
+
+        visible = true;
+
+//        if (visible) {
+//            mLove.setVisibility(View.GONE);
+//
+//            mLove.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mHate.setVisibility(View.VISIBLE);
+//                    mLove.setVisibility(View.GONE);
+//                }
+//            });
+//
+//            mHate.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    mLove.setVisibility(View.VISIBLE);
+//                    mHate.setVisibility(View.GONE);
+//                }
+//            });
+//
+//        }
 
 
         /*dialog.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
@@ -168,7 +194,7 @@ public class Timber5 extends BaseNowplayingFragment {
     public void updateShuffleState() {
         if (shuffle != null && getActivity() != null) {
             MaterialDrawableBuilder builder = MaterialDrawableBuilder.with(getActivity())
-                    .setIcon(MaterialDrawableBuilder.IconValue.REFRESH)
+                    .setIcon(MaterialDrawableBuilder.IconValue.SHUFFLE)
                     .setSizeDp(30);
 
             if (getActivity() != null) {

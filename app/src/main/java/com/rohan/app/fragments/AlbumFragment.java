@@ -26,6 +26,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.melnykov.fab.FloatingActionButton;
 import com.rohan.app.R;
@@ -65,6 +66,8 @@ public class AlbumFragment extends Fragment {
         fastScroller = (FastScroller) rootView.findViewById(R.id.fastscroller);
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.hide();
+        ImageView backdrop = (ImageView) rootView.findViewById(R.id.white_backdrop);
+        backdrop.setVisibility(View.VISIBLE);
 
         setLayoutManager();
 

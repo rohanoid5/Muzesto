@@ -1,16 +1,3 @@
-/*
- * Copyright (C) 2015 Naman Dwivedi
- *
- * Licensed under the GNU General Public License v3
- *
- * This is free software: you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
- *
- * This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
- * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- */
 
 package com.rohan.app.fragments;
 
@@ -27,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.cleveroad.audiovisualization.AudioVisualization;
 import com.cleveroad.audiovisualization.DbmHandler;
@@ -70,6 +58,8 @@ public class ArtistFragment extends Fragment {
         fastScroller = (FastScroller) rootView.findViewById(R.id.fastscroller);
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.hide();
+        ImageView backdrop = (ImageView) rootView.findViewById(R.id.white_backdrop);
+        backdrop.setVisibility(View.VISIBLE);
 
         audioVisualization = (AudioVisualization) rootView.findViewById(R.id.visualizer_view);
 
@@ -84,7 +74,7 @@ public class ArtistFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //audioVisualization = (AudioVisualization) view;
-        //audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
+        audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
         /*VisualizerDbmHandler visualizerHandler = DbmHandler.Factory.newVisualizerHandler(getContext(), 0);
         audioVisualization.linkTo(visualizerHandler);*/
     }

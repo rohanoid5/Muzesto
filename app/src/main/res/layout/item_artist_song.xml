@@ -39,6 +39,7 @@
                 android:textSize="16sp"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:textColor="@color/jet"
                 style="@style/TextAppearance.AppCompat.Body1"/>
 
             <TextView
@@ -49,6 +50,7 @@
                 android:textSize="12sp"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:textColor="@color/jet"
                 style="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"/>
 
 
@@ -77,7 +79,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:foregroundTint="#434343"
             android:padding="5dp"
-            android:src="@drawable/ic_audiotrack_white_24dp" />
+            android:src="@drawable/ic_more_vert_black_24dp" />
 
     </RelativeLayout>
 

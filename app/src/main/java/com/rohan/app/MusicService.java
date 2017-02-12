@@ -67,6 +67,7 @@ import com.rohan.app.permissions.Nammu;
 import com.rohan.app.provider.MusicPlaybackState;
 import com.rohan.app.provider.RecentStore;
 import com.rohan.app.provider.SongPlayCount;
+import com.rohan.app.utils.Constants;
 import com.rohan.app.utils.NavigationUtils;
 import com.rohan.app.utils.PreferencesUtility;
 import com.rohan.app.utils.TimberUtils;
@@ -172,7 +173,7 @@ public class MusicService extends Service {
     private PendingIntent mShutdownIntent;
     private boolean mShutdownScheduled;
     private NotificationManagerCompat mNotificationManager;
-    private Cursor mCursor;
+    private static Cursor mCursor;
     private Cursor mAlbumCursor;
     private AudioManager mAudioManager;
     private SharedPreferences mPreferences;
@@ -448,6 +449,10 @@ public class MusicService extends Service {
         }
 
         return START_STICKY;
+    }
+
+    public static Cursor getCursor() {
+        return mCursor;
     }
 
     private void releaseServiceUiAndStop() {
@@ -842,7 +847,7 @@ public class MusicService extends Service {
         sendBroadcast(i);
     }
 
-    private int getNextPosition(final boolean force) {
+    public int getNextPosition(final boolean force) {
         if (mPlaylist == null || mPlaylist.isEmpty()) {
             return -1;
         }
@@ -926,7 +931,7 @@ public class MusicService extends Service {
         setNextTrack(getNextPosition(false));
     }
 
-    private void setNextTrack(int position) {
+    public void setNextTrack(int position) {
         mNextPlayPos = position;
         if (D) Log.d(TAG, "setNextTrack: next play position = " + mNextPlayPos);
         if (mNextPlayPos >= 0 && mPlaylist != null && mNextPlayPos < mPlaylist.size()) {
@@ -2257,7 +2262,7 @@ public class MusicService extends Service {
         }
     }
 
-    private static final class MultiPlayer implements MediaPlayer.OnErrorListener,
+    public static final class MultiPlayer implements MediaPlayer.OnErrorListener,
             MediaPlayer.OnCompletionListener {
 
         private final WeakReference<MusicService> mService;
@@ -2268,10 +2273,140 @@ public class MusicService extends Service {
 
         private Handler mHandler;
 
+        boolean mFirstRun;
+
         private boolean mIsInitialized = false;
+
+        private int mCurrentSongIndex;
 
         private String mNextMediaPath;
 
+        public MediaPlayer getMediaPlayer() {
+            return mCurrentMediaPlayer;
+        }
+
+        public MediaPlayer getMediaPlayer2() {
+            return mNextMediaPlayer;
+        }
+
+        public boolean skipToNextTrack() {
+            try {
+                //Reset both MediaPlayer objects.
+                getMediaPlayer().reset();
+                getMediaPlayer2().reset();
+//                clearCrossfadeCallbacks();
+
+                //Loop the players if the repeat mode is set to repeat the current song.
+//                if (getRepeatMode()== Constants.REPEAT_SONG) {
+//                    getMediaPlayer().setLooping(true);
+//                    getMediaPlayer2().setLooping(true);
+//                }
+
+                //Remove crossfade runnables and reset all volume levels.
+//                getHandler().removeCallbacks(crossFadeRunnable);
+                getMediaPlayer().setVolume(1.0f, 1.0f);
+                getMediaPlayer2().setVolume(1.0f, 1.0f);
+
+                //Increment the song index.
+//                incrementCurrentSongIndex();
+
+                //Update the UI.
+                String[] updateFlags = new String[] { Constants.UPDATE_PAGER_POSTIION };
+                String[] flagValues = new String[] { getCurrentSongIndex() + "" };
+//                mApp.broadcastUpdateUICommand(updateFlags, flagValues);
+
+                //Start the playback process.
+                mFirstRun = true;
+//                prepareMediaPlayer(getCurrentSongIndex());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return true;
+        }
+
+//        public boolean prepareMediaPlayer(int songIndex) {
+//
+//            try {
+//
+//                //Stop here if we're at the end of the queue.
+//                if (songIndex==-1)
+//                    return true;
+//
+//                //Reset mMediaPlayer to it's uninitialized state.
+//                getMediaPlayer().reset();
+//
+//                //Loop the player if the repeat mode is set to repeat the current song.
+//                if (getRepeatMode()==Constants.REPEAT_SONG) {
+//                    getMediaPlayer().setLooping(true);
+//                }
+//
+//                //Set mMediaPlayer's song data.
+//                SongHelper songHelper = new SongHelper();
+//                if (mFirstRun) {
+//	    		/*
+//	    		 * We're not preloading the next song (mMediaPlayer2 is not
+//	    		 * playing right now). mMediaPlayer's song is pointed at
+//	    		 * by mCurrentSongIndex.
+//	    		 */
+//                    songHelper.populateSongData(mContext, songIndex);
+//                    setMediaPlayerSongHelper(songHelper);
+//
+//                    //Set this service as a foreground service.
+//                    startForeground(mNotificationId, buildNotification(songHelper));
+//
+//                } else {
+//                    songHelper.populateSongData(mContext, songIndex);
+//                    setMediaPlayerSongHelper(songHelper);
+//                }
+//
+//    		/*
+//    		 * Set the data source for mMediaPlayer and start preparing it
+//    		 * asynchronously.
+//    		 */
+//                getMediaPlayer().setDataSource(mContext, getSongDataSource(getMediaPlayerSongHelper()));
+//                getMediaPlayer().setOnPreparedListener(mediaPlayerPrepared);
+//                getMediaPlayer().setOnErrorListener(onErrorListener);
+//                getMediaPlayer().prepareAsync();
+//
+//            } catch (Exception e) {
+//                Log.e("DEBUG", "MESSAGE", e);
+//                e.printStackTrace();
+//
+//                //Display an error toast to the user.
+////                showErrorToast();
+//
+//                //Add the current song index to the list of failed indeces.
+////                getFailedIndecesList().add(songIndex);
+//
+//                //Start preparing the next song.
+//                if (!isAtEndOfQueue() || mFirstRun)
+//                    prepareMediaPlayer(songIndex+1);
+//                else
+//                    return false;
+//
+//                return false;
+//            }
+//
+//            return true;
+//        }
+
+        public int getCurrentSongIndex() {
+            return mCurrentSongIndex;
+        }
+
+//        public int getRepeatMode() {
+//            return mApp.getSharedPreferences().getInt(Constants.REPEAT_MODE, Constants.REPEAT_OFF);
+//        }
+
+//        public int incrementCurrentSongIndex() {
+//            if ((getCurrentSongIndex()+1) < getCursor().getCount())
+//                mCurrentSongIndex++;
+//
+//            return mCurrentSongIndex;
+//        }
 
         public MultiPlayer(final MusicService service) {
             mService = new WeakReference<MusicService>(service);

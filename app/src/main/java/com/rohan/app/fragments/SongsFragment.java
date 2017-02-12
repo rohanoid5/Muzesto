@@ -16,10 +16,12 @@ package com.rohan.app.fragments;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -36,9 +38,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.cleveroad.audiovisualization.AudioVisualization;
 import com.cleveroad.audiovisualization.DbmHandler;
+import com.cleveroad.audiovisualization.GLAudioVisualizationView;
 import com.cleveroad.audiovisualization.VisualizerDbmHandler;
 import com.melnykov.fab.FloatingActionButton;
 import com.rohan.app.MusicPlayer;
@@ -64,6 +68,7 @@ public class SongsFragment extends Fragment implements MusicStateListener {
     private RecyclerView recyclerView;
     private PreferencesUtility mPreferences;
     private AudioVisualization audioVisualization;
+    private ImageView backdrop;
 
 
     @Override
@@ -77,38 +82,13 @@ public class SongsFragment extends Fragment implements MusicStateListener {
         View rootView = inflater.inflate(
                 R.layout.fragment_recyclerview, container, false);
 
-        /*if (savedInstanceState == null) {
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.RECORD_AUDIO)
-                    || ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.MODIFY_AUDIO_SETTINGS)) {
-                AlertDialog.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == DialogInterface.BUTTON_POSITIVE) {
-                            requestPermissions();
-                        } else if (which == DialogInterface.BUTTON_NEGATIVE) {
-                            //permissionsNotGranted();
-                        }
-                    }
-                };
-                new AlertDialog.Builder(getActivity())
-                        .setTitle(getString(R.string.title_permissions))
-                        .setMessage(Html.fromHtml(getString(R.string.message_permissions)))
-                        .setPositiveButton(getString(R.string.btn_next), onClickListener)
-                        .setNegativeButton(getString(R.string.btn_cancel), onClickListener)
-                        .show();
-            } else {
-                requestPermissions();
-            }
-
-        }*/
-
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         FastScroller fastScroller = (FastScroller) rootView.findViewById(R.id.fastscroller);
         fastScroller.setRecyclerView(recyclerView);
         audioVisualization = (AudioVisualization) rootView.findViewById(R.id.visualizer_view);
+        backdrop = (ImageView) rootView.findViewById(R.id.white_backdrop);
 
         fab.attachToRecyclerView(recyclerView);
         fab.setColorNormal(getResources().getColor(R.color.colorAccent));
@@ -138,34 +118,16 @@ public class SongsFragment extends Fragment implements MusicStateListener {
 
         }*/
 
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        Boolean stateWave = sharedPrefs.getBoolean(getString(R.string.pref_switch_wave_key), true);
+
+        if(stateWave)
+            backdrop.setVisibility(View.GONE);
+        else
+            backdrop.setVisibility(View.VISIBLE);
+
         return rootView;
     }
-
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE) {
-            boolean bothGranted = true;
-            for (int i = 0; i < permissions.length; i++) {
-                if (Manifest.permission.RECORD_AUDIO.equals(permissions[i]) || Manifest.permission.MODIFY_AUDIO_SETTINGS.equals(permissions[i])) {
-                    bothGranted &= grantResults[i] == PackageManager.PERMISSION_GRANTED;
-                }
-            }
-            if (bothGranted) {
-                shouldOpenFragment = true;
-            } else {
-                //permissionsNotGranted();
-            }
-        }
-    }
-
-    private void requestPermissions() {
-        ActivityCompat.requestPermissions(
-                getActivity(),
-                new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.MODIFY_AUDIO_SETTINGS},
-                REQUEST_CODE
-        );
-    }*/
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
