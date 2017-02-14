@@ -80,8 +80,15 @@ public class MainFragment extends Fragment implements MusicStateListener {
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
-        audioVisualization = (AudioVisualization) rootView.findViewById(R.id.visualizer);
-        audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.MODIFY_AUDIO_SETTINGS) == PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions();
+
+        }
+
+//        audioVisualization = (AudioVisualization) rootView.findViewById(R.id.visualizer);
+//        audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
         if (viewPager != null) {
             setupViewPager(viewPager);
@@ -117,7 +124,7 @@ public class MainFragment extends Fragment implements MusicStateListener {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
+       // audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
         viewPager.setCurrentItem(mPreferences.getStartPageIndex());
     }
 
@@ -137,12 +144,12 @@ public class MainFragment extends Fragment implements MusicStateListener {
     @Override
     public void onResume() {
         super.onResume();
-        audioVisualization.onResume();
+        //audioVisualization.onResume();
     }
 
     @Override
     public void onPause() {
-        audioVisualization.onPause();
+//        audioVisualization.onPause();
         if (mPreferences.lastOpenedIsStartPagePreference()) {
             mPreferences.setStartPageIndex(viewPager.getCurrentItem());
         }
@@ -151,7 +158,7 @@ public class MainFragment extends Fragment implements MusicStateListener {
 
     @Override
     public void onDestroyView() {
-        audioVisualization.release();
+        //audioVisualization.release();
         super.onDestroyView();
     }
 

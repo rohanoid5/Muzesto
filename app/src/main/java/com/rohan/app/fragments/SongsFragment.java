@@ -79,6 +79,7 @@ public class SongsFragment extends Fragment implements MusicStateListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //requestPermissions();
         View rootView = inflater.inflate(
                 R.layout.fragment_recyclerview, container, false);
 
@@ -111,12 +112,14 @@ public class SongsFragment extends Fragment implements MusicStateListener {
         new loadSongs().execute("");
         ((BaseActivity) getActivity()).setMusicStateListenerListener(this);
 
-        /*if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.MODIFY_AUDIO_SETTINGS) == PackageManager.PERMISSION_GRANTED) {
-
-            requestPermissions();
-
-        }*/
+//        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+//                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.MODIFY_AUDIO_SETTINGS) == PackageManager.PERMISSION_GRANTED) {
+//
+//            requestPermissions();
+//
+//        }
+//
+//        requestPermissions();
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Boolean stateWave = sharedPrefs.getBoolean(getString(R.string.pref_switch_wave_key), true);
@@ -129,13 +132,24 @@ public class SongsFragment extends Fragment implements MusicStateListener {
         return rootView;
     }
 
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(
+                getActivity(),
+                new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.MODIFY_AUDIO_SETTINGS},
+                REQUEST_CODE
+        );
+    }
+
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //audioVisualization = (AudioVisualization) view;
-        //audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
-        VisualizerDbmHandler visualizerHandler = DbmHandler.Factory.newVisualizerHandler(getContext(), 0);
-        audioVisualization.linkTo(visualizerHandler);
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.MODIFY_AUDIO_SETTINGS) == PackageManager.PERMISSION_GRANTED) {
+            requestPermissions();
+            VisualizerDbmHandler visualizerHandler = DbmHandler.Factory.newVisualizerHandler(getContext(), 0);
+            audioVisualization.linkTo(visualizerHandler);
+        }
     }
 
     @Override

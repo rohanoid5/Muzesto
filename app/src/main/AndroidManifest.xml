@@ -34,13 +34,13 @@
             android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/ThemeBaseDark">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:theme="@style/ThemeBaseDark.Launcher">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.CATEGORY_APP_MUSIC" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.CATEGORY_APP_MUSIC" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -96,6 +96,15 @@
             android:name=".activities.NowPlayingActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activities.IntroActivity"
+            android:theme="@style/ThemeBaseDark"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.CATEGORY_APP_MUSIC" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <receiver android:name=".helpers.MediaButtonIntentReceiver">
             <intent-filter>

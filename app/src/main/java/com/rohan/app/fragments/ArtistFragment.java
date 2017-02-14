@@ -61,7 +61,7 @@ public class ArtistFragment extends Fragment {
         ImageView backdrop = (ImageView) rootView.findViewById(R.id.white_backdrop);
         backdrop.setVisibility(View.VISIBLE);
 
-        audioVisualization = (AudioVisualization) rootView.findViewById(R.id.visualizer_view);
+        //audioVisualization = (AudioVisualization) rootView.findViewById(R.id.visualizer_view);
 
         setLayoutManager();
 
@@ -74,7 +74,7 @@ public class ArtistFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //audioVisualization = (AudioVisualization) view;
-        audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
+//        audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
         /*VisualizerDbmHandler visualizerHandler = DbmHandler.Factory.newVisualizerHandler(getContext(), 0);
         audioVisualization.linkTo(visualizerHandler);*/
     }
@@ -82,18 +82,18 @@ public class ArtistFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        audioVisualization.onResume();
+//        audioVisualization.onResume();
     }
 
     @Override
     public void onPause() {
-        audioVisualization.onPause();
+        //audioVisualization.onPause();
         super.onPause();
     }
 
     @Override
     public void onDestroyView() {
-        audioVisualization.release();
+       // audioVisualization.release();
         super.onDestroyView();
     }
 

@@ -32,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.cleveroad.audiowidget.AudioWidget;
@@ -167,42 +168,37 @@ public class MainActivity extends BaseActivity  {
 
         isDarkTheme = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dark_theme", false);
 
+        setTheme(R.style.ThemeBaseDark);
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.do_not_move, R.anim.do_not_move);
         setContentView(R.layout.activity_main);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-//        if (savedInstanceState == null) {
-//
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)
-//                    || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.MODIFY_AUDIO_SETTINGS)) {
-//                AlertDialog.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        if (which == DialogInterface.BUTTON_POSITIVE) {
-//                            requestPermissions();
-//                        } else if (which == DialogInterface.BUTTON_NEGATIVE) {
-//                            //permissionsNotGranted();
-//                        }
-//                    }
-//                };
-//                new AlertDialog.Builder(this)
-//                        .setTitle(getString(R.string.title_permissions))
-//                        .setMessage(Html.fromHtml(getString(R.string.message_permissions)))
-//                        .setPositiveButton(getString(R.string.btn_next), onClickListener)
-//                        .setNegativeButton(getString(R.string.btn_cancel), onClickListener)
-//                        .show();
-//            } else {
-//                requestPermissions();
-//            }
-//        }
+        if (savedInstanceState == null) {
 
-        Ask.on(this)
-                .forPermissions(Manifest.permission.RECORD_AUDIO
-                        , Manifest.permission.MODIFY_AUDIO_SETTINGS)
-                .withRationales("Location permission need for map to work properly",
-                        "In order to save file you will need to grant storage permission") //optional
-                .go();
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)
+                    || ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.MODIFY_AUDIO_SETTINGS)) {
+                AlertDialog.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (which == DialogInterface.BUTTON_POSITIVE) {
+                            requestPermissions();
+                        } else if (which == DialogInterface.BUTTON_NEGATIVE) {
+                            //permissionsNotGranted();
+                        }
+                    }
+                };
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.title_permissions))
+                        .setMessage(Html.fromHtml(getString(R.string.message_permissions)))
+                        .setPositiveButton(getString(R.string.btn_next), onClickListener)
+                        .setNegativeButton(getString(R.string.btn_cancel), onClickListener)
+                        .show();
+            } else {
+                requestPermissions();
+            }
+        }
 
         navigationMap.put(Constants.NAVIGATE_LIBRARY, navigateLibrary);
         navigationMap.put(Constants.NAVIGATE_PLAYLIST, navigatePlaylist);
@@ -233,11 +229,11 @@ public class MainActivity extends BaseActivity  {
 
 
 
-        if (TimberUtils.isMarshmallow()) {
-            checkPermissionAndThenLoad();
-        } else {
+//        if (TimberUtils.isMarshmallow()) {
+//            checkPermissionAndThenLoad();
+//        } else {
             loadEverything();
-        }
+        //}
 
         addBackstackListener();
 

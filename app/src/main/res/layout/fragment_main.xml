@@ -5,22 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.cleveroad.audiovisualization.GLAudioVisualizationView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/visualizer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_marginTop="200dp"
-        app:av_background_color="@color/wave_background"
-        app:av_bubble_size="@dimen/bubble_size"
-        app:av_footer_height="@dimen/footer_height"
-        app:av_layers_count="4"
-        app:av_randomize_bubble_size="true"
-        app:av_wave_height="@dimen/wave_height"
-        app:av_waves_colors="@array/waves"
-        app:av_waves_count="10" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
