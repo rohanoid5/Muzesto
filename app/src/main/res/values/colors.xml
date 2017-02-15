@@ -27,6 +27,7 @@
     <color name="deep2">#90CAF9</color>
     <color name="light_deep">#FFFDE7</color>
     <color name="light2">#64B5F6</color>
+    <color name="lighter_blue">#90CAF9</color>
     <color name="wave_background">#E0F7FA</color>
 
 
@@ -34,8 +35,8 @@
         <item>@color/deep1</item>
         <item>@color/deep1</item>
         <!--<item>@color/deep2</item>-->
-        <item>@color/light2</item>
-        <item>@color/light2</item>
+        <item>@color/lighter_blue</item>
+        <item>@color/lighter_blue</item>
         <!--<item>@color/light_deep</item>-->
     </array>
 

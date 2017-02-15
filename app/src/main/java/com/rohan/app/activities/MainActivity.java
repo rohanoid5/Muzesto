@@ -282,7 +282,7 @@ public class MainActivity extends BaseActivity  {
         floatWidget = sharedPrefs.getBoolean(getString(R.string.pref_switch_key), true);
 
         if (floatWidget) {
-//            audioWidget.show(preferences.getInt(KEY_POSITION_X, 100), preferences.getInt(KEY_POSITION_Y, 100));
+            audioWidget.show(preferences.getInt(KEY_POSITION_X, 100), preferences.getInt(KEY_POSITION_Y, 100));
             floatWidget = false;
         }
         audioWidget.controller().onControlsClickListener(new AudioWidget.OnControlsClickListener() {
@@ -314,7 +314,6 @@ public class MainActivity extends BaseActivity  {
 
             @Override
             public boolean onPlayPauseClicked() {
-                // return true to change playback state of widget and play button click animation (in collapsed state)
                 if (MusicPlayer.isPlaying()) {
                     //stopTrackingPosition();
                     MusicPlayer.playOrPause();

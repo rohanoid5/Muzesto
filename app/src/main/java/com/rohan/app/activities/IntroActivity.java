@@ -3,37 +3,42 @@ package com.rohan.app.activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.anthonycr.grant.PermissionsManager;
 import com.anthonycr.grant.PermissionsResultAction;
-import com.luseen.simplepermission.permissions.MultiplePermissionCallback;
-import com.luseen.simplepermission.permissions.Permission;
-import com.luseen.simplepermission.permissions.PermissionActivity;
 import com.rohan.app.R;
-import com.rohan.app.ask.Ask;
-import com.rohan.app.permissions.Nammu;
 
 import java.util.List;
 
 /**
  * Created by rohan on 13-02-2017.
  */
-public class IntroActivity extends PermissionActivity {
+public class IntroActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 1;
     private static final String TAG = IntroActivity.class.getSimpleName();
+    private static final int OVERLAY_PERMISSION_REQ_CODE = 100;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+        }
 
         PermissionsManager.getInstance().requestPermissionsIfNecessaryForResult(this,
                 new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.MODIFY_AUDIO_SETTINGS,
