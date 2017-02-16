@@ -19,7 +19,7 @@ import com.rohan.app.utils.Constants;
 import com.rohan.app.utils.NavigationUtils;
 
 /**
- * Created by naman on 01/01/16.
+ * Created by rohan on 01/01/16.
  */
 public class NowPlayingActivity extends BaseActivity {
 

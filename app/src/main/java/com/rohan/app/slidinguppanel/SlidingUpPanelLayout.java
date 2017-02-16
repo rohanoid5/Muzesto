@@ -395,7 +395,7 @@ public class SlidingUpPanelLayout extends ViewGroup {
                         if (!isPanelExpanded() && !isPanelAnchored()) {
                             expandPanel(mAnchorPoint);
                         } else {
-                            collapsePanel();
+                            //collapsePanel();
                         }
                     }
                 });

@@ -86,7 +86,7 @@ public class MainFragment extends Fragment implements MusicStateListener {
             requestPermissions();
 
         }
-
+        
 //        audioVisualization = (AudioVisualization) rootView.findViewById(R.id.visualizer);
 //        audioVisualization.linkTo(DbmHandler.Factory.newVisualizerHandler(getContext(), 0));
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);

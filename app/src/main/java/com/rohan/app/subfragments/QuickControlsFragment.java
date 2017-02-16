@@ -1,6 +1,7 @@
 
 package com.rohan.app.subfragments;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -18,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -28,6 +30,7 @@ import com.rohan.app.MusicPlayer;
 import com.rohan.app.R;
 import com.rohan.app.activities.BaseActivity;
 import com.rohan.app.activities.MainActivity;
+import com.rohan.app.activities.NowPlayingActivity;
 import com.rohan.app.listeners.MusicStateListener;
 import com.rohan.app.utils.Helpers;
 import com.rohan.app.utils.ImageUtils;
@@ -66,6 +69,7 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
     private TextView mArtist, mArtistExpanded;
     private ImageView mAlbumArt, mBlurredArt;
     private View rootView;
+    private FrameLayout frameLayout;
     private View playPauseWrapper, playPauseWrapperExpanded;
     private MaterialIconView previous, next;
     private boolean duetoplaypause = false;
@@ -118,6 +122,7 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
         View rootView = inflater.inflate(R.layout.fragment_playback_controls, container, false);
         this.rootView = rootView;
 
+        frameLayout = (FrameLayout) rootView.findViewById(R.id.quick_controls_frame);
         mPlayPause = (PlayPauseButton) rootView.findViewById(R.id.play_pause);
         mPlayPauseExpanded = (PlayPauseButton) rootView.findViewById(R.id.playpause);
         playPauseWrapper = rootView.findViewById(R.id.play_pause_wrapper);
@@ -189,6 +194,12 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
             }
         });
 
+        frameLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), NowPlayingActivity.class));
+            }
+        });
 
         ((BaseActivity) getActivity()).setMusicStateListenerListener(this);
 

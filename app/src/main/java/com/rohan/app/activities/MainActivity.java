@@ -27,9 +27,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,10 +74,11 @@ public class MainActivity extends BaseActivity  {
 
     private static final int OVERLAY_PERMISSION_REQ_CODE = 1 ;
     private static final int REQUEST_CODE = 1;
+    private static final String TAG = MainActivity.class.getName();
     private boolean shouldOpenFragment;
     private static MainActivity sMainActivity;
     private boolean paused;
-    SlidingUpPanelLayout panelLayout;
+    com.rohan.app.slidinguppanel.SlidingUpPanelLayout panelLayout;
     NavigationView navigationView;
     TextView songtitle, songartist;
     ImageView albumart;
@@ -208,7 +211,7 @@ public class MainActivity extends BaseActivity  {
         navigationMap.put(Constants.NAVIGATE_ARTIST, navigateArtist);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        panelLayout = (SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
+        panelLayout = (com.rohan.app.slidinguppanel.SlidingUpPanelLayout) findViewById(R.id.sliding_layout);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         View header = navigationView.inflateHeaderView(R.layout.nav_header);
@@ -249,11 +252,6 @@ public class MainActivity extends BaseActivity  {
                 }
             }, 350);
         }
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
-//            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-//            startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
-//        }
 
         audioWidget = new AudioWidget.Builder(this)
                 .lightColor(ContextCompat.getColor(this, R.color.widget_play))
