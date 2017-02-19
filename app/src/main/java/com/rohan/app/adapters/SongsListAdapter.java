@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +18,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.rohan.app.MusicPlayer;
 import com.rohan.app.R;
+import com.rohan.app.activities.MainActivity;
 import com.rohan.app.dialogs.AddPlaylistDialog;
+import com.rohan.app.fragments.SlideUpNowPlayingFragment;
 import com.rohan.app.models.Song;
 import com.rohan.app.utils.Helpers;
 import com.rohan.app.utils.NavigationUtils;
@@ -43,13 +47,16 @@ public class SongsListAdapter extends RecyclerView.Adapter<SongsListAdapter.Item
     private boolean isPlaylist;
     private int lastPosition = -1;
     private String ateKey;
+    private Class<SlideUpNowPlayingFragment> slideUpNowPlayingFragment;
 
-    public SongsListAdapter(AppCompatActivity context, List<Song> arraylist, boolean isPlaylistSong) {
+    public SongsListAdapter(AppCompatActivity context, List<Song> arraylist
+            , boolean isPlaylistSong) {
         this.arraylist = arraylist;
         this.mContext = context;
         this.isPlaylist = isPlaylistSong;
         this.songIDs = getSongIds();
         this.ateKey = Helpers.getATEKey(context);
+        this.slideUpNowPlayingFragment = slideUpNowPlayingFragment;
     }
 
     @Override
@@ -72,7 +79,9 @@ public class SongsListAdapter extends RecyclerView.Adapter<SongsListAdapter.Item
         itemHolder.title.setText(localItem.title);
         itemHolder.artist.setText(localItem.artistName);
 
-        ImageLoader.getInstance().displayImage(TimberUtils.getAlbumArtUri(localItem.albumId).toString(), itemHolder.albumArt, new DisplayImageOptions.Builder().cacheInMemory(true).showImageOnFail(R.drawable.ic_dribble).resetViewBeforeLoading(true).build());
+        ImageLoader.getInstance().displayImage(TimberUtils.getAlbumArtUri(localItem.albumId).toString(), itemHolder.albumArt,
+                new DisplayImageOptions.Builder().cacheInMemory(true)
+                        .showImageOnFail(R.drawable.ic_dribble).resetViewBeforeLoading(true).build());
         if (MusicPlayer.getCurrentAudioId() == localItem.id) {
             //itemHolder.title.setTextColor(ContextCompat.getColor(mContext, R.color.colorAccent));
             if (MusicPlayer.isPlaying()) {
@@ -205,6 +214,9 @@ public class SongsListAdapter extends RecyclerView.Adapter<SongsListAdapter.Item
                 @Override
                 public void run() {
                     MusicPlayer.playAll(mContext, songIDs, getAdapterPosition(), -1, TimberUtils.IdType.NA, false);
+                    Log.e("Songs Position", String.valueOf(mContext));
+                    MainActivity mainActivity = (MainActivity) mContext;
+                    mainActivity.getSong(MusicPlayer.getQueuePosition());
                     Handler handler1 = new Handler();
                     handler1.postDelayed(new Runnable() {
                         @Override

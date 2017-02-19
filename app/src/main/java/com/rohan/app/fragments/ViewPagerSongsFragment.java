@@ -1,5 +1,4 @@
-
-package com.rohan.app.subfragments;
+package com.rohan.app.fragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,8 +13,10 @@ import android.graphics.drawable.TransitionDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,28 +27,34 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.rohan.app.MusicPlayer;
 import com.rohan.app.R;
 import com.rohan.app.activities.BaseActivity;
 import com.rohan.app.activities.MainActivity;
 import com.rohan.app.activities.NowPlayingActivity;
 import com.rohan.app.listeners.MusicStateListener;
-import com.rohan.app.utils.Helpers;
+import com.rohan.app.models.Song;
+import com.rohan.app.subfragments.QuickControlsFragment;
 import com.rohan.app.utils.ImageUtils;
 import com.rohan.app.utils.TimberUtils;
 import com.rohan.app.widgets.PlayPauseButton;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
 
-public class QuickControlsFragment extends Fragment implements MusicStateListener {
+/**
+ * Created by rohan on 17-02-2017.
+ */
+
+public class ViewPagerSongsFragment extends Fragment implements MusicStateListener {
 
     public static View topContainer;
     private ProgressBar mProgress;
     private SeekBar mSeekBar;
+    private long[] songIDs;
     public Runnable mUpdateProgress = new Runnable() {
 
         @Override
@@ -114,11 +121,30 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
 
         }
     };
+    private Song song;
+    private int position;
+
+    public static ViewPagerSongsFragment newInstance(Song song, int position) {
+        ViewPagerSongsFragment viewPagerSongsFragment = new ViewPagerSongsFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("songs", song);
+        args.putInt("position", position);
+        viewPagerSongsFragment.setArguments(args);
+        return viewPagerSongsFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        song = getArguments().getParcelable("songs");
+        position = getArguments().getInt("position");
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_playback_controls, container, false);
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_view_pager_now_playing, container, false);
         this.rootView = rootView;
 
         frameLayout = (FrameLayout) rootView.findViewById(R.id.quick_controls_frame);
@@ -206,45 +232,17 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
     }
 
     public void updateNowplayingCard() {
-        mTitle.setText(MusicPlayer.getTrackName());
-        mArtist.setText(MusicPlayer.getArtistName());
-        mTitleExpanded.setText(MusicPlayer.getTrackName());
-        mArtistExpanded.setText(MusicPlayer.getArtistName());
-        if (!duetoplaypause) {
-            ImageLoader.getInstance().displayImage(TimberUtils.getAlbumArtUri(MusicPlayer.getCurrentAlbumId()).toString(), mAlbumArt,
-                    new DisplayImageOptions.Builder().cacheInMemory(true)
-                            .showImageOnFail(R.drawable.ic_dribble)
-                            .resetViewBeforeLoading(true)
-                            .build(), new ImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String imageUri, View view) {
-
-                        }
-
-                        @Override
-                        public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            Bitmap failedBitmap = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.ic_dribble);
-                            if (getActivity() != null)
-                                new setBlurredAlbumArt().execute(failedBitmap);
-                        }
-
-                        @Override
-                        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            if (getActivity() != null)
-                                new setBlurredAlbumArt().execute(loadedImage);
-                            MainActivity.audioWidget.controller().albumCoverBitmap(getCroppedBitmap(loadedImage));
-
-                        }
-
-                        @Override
-                        public void onLoadingCancelled(String imageUri, View view) {
-
-                        }
-                    });
-        }
+        final Handler handler = new Handler();
+        mTitle.setText(song.title);
+        mArtist.setText(song.artistName);
+        mTitleExpanded.setText(song.title);
+        mArtistExpanded.setText(song.artistName);
+        ImageLoader.getInstance().displayImage(TimberUtils.getAlbumArtUri(song.albumId).toString(), mBlurredArt,
+                new DisplayImageOptions.Builder().cacheInMemory(true)
+                        .showImageOnFail(R.drawable.ic_dribble).resetViewBeforeLoading(true).build());
         duetoplaypause = false;
-        mProgress.setMax((int) MusicPlayer.duration());
-        mSeekBar.setMax((int) MusicPlayer.duration());
+        mProgress.setMax((int) song.duration);
+        mSeekBar.setMax((int) song.duration);
         mProgress.postDelayed(mUpdateProgress, 10);
     }
 
@@ -363,6 +361,4 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
         protected void onPreExecute() {
         }
     }
-
-
 }

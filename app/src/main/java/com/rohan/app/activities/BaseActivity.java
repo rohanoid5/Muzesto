@@ -23,6 +23,7 @@ import com.rohan.app.ITimberService;
 import com.rohan.app.MusicPlayer;
 import com.rohan.app.MusicService;
 import com.rohan.app.R;
+import com.rohan.app.fragments.SlideUpNowPlayingFragment;
 import com.rohan.app.listeners.MusicStateListener;
 import com.rohan.app.slidinguppanel.SlidingUpPanelLayout;
 import com.rohan.app.subfragments.QuickControlsFragment;
@@ -210,19 +211,19 @@ public class BaseActivity extends AppCompatActivity implements ServiceConnection
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
                 View nowPlayingCard = QuickControlsFragment.topContainer;
-                nowPlayingCard.setAlpha(1 - slideOffset);
+                //nowPlayingCard.setAlpha(1 - slideOffset);
             }
 
             @Override
             public void onPanelCollapsed(View panel) {
-                View nowPlayingCard = QuickControlsFragment.topContainer;
-                nowPlayingCard.setAlpha(1);
+               // View nowPlayingCard = QuickControlsFragment.topContainer;
+               // nowPlayingCard.setAlpha(1);
             }
 
             @Override
             public void onPanelExpanded(View panel) {
-                View nowPlayingCard = QuickControlsFragment.topContainer;
-                nowPlayingCard.setAlpha(0);
+                //View nowPlayingCard = QuickControlsFragment.topContainer;
+               // nowPlayingCard.setAlpha(0);
             }
 
             @Override
@@ -272,7 +273,8 @@ public class BaseActivity extends AppCompatActivity implements ServiceConnection
 
         @Override
         protected String doInBackground(String... params) {
-            QuickControlsFragment fragment1 = new QuickControlsFragment();
+            //QuickControlsFragment fragment1 = new QuickControlsFragment();
+            SlideUpNowPlayingFragment fragment1 = new SlideUpNowPlayingFragment();
             FragmentManager fragmentManager1 = getSupportFragmentManager();
             fragmentManager1.beginTransaction()
                     .replace(R.id.quickcontrols_container, fragment1).commitAllowingStateLoss();
@@ -281,12 +283,13 @@ public class BaseActivity extends AppCompatActivity implements ServiceConnection
 
         @Override
         protected void onPostExecute(String result) {
-            QuickControlsFragment.topContainer.setOnClickListener(new View.OnClickListener() {
+            /*QuickControlsFragment.topContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     NavigationUtils.navigateToNowplaying(BaseActivity.this, false);
                 }
-            });
+            });*/
+            //SlideUpNowPlayingFragment.setCurrSongs(9);
         }
 
         @Override

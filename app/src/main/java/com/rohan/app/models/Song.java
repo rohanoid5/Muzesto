@@ -14,7 +14,10 @@
 
 package com.rohan.app.models;
 
-public class Song {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Song implements Parcelable {
 
     public final long albumId;
     public final String albumName;
@@ -45,5 +48,45 @@ public class Song {
         this.albumName = _albumName;
         this.duration = _duration;
         this.trackNumber = _trackNumber;
+    }
+
+    protected Song(Parcel in) {
+        albumId = in.readLong();
+        albumName = in.readString();
+        artistId = in.readLong();
+        artistName = in.readString();
+        duration = in.readInt();
+        id = in.readLong();
+        title = in.readString();
+        trackNumber = in.readInt();
+    }
+
+    public static final Creator<Song> CREATOR = new Creator<Song>() {
+        @Override
+        public Song createFromParcel(Parcel in) {
+            return new Song(in);
+        }
+
+        @Override
+        public Song[] newArray(int size) {
+            return new Song[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(albumId);
+        parcel.writeString(albumName);
+        parcel.writeLong(artistId);
+        parcel.writeString(artistName);
+        parcel.writeInt(duration);
+        parcel.writeLong(id);
+        parcel.writeString(title);
+        parcel.writeInt(trackNumber);
     }
 }

@@ -47,6 +47,7 @@ import com.rohan.app.fragments.ArtistDetailFragment;
 import com.rohan.app.fragments.MainFragment;
 import com.rohan.app.fragments.PlaylistFragment;
 import com.rohan.app.fragments.QueueFragment;
+import com.rohan.app.fragments.SlideUpNowPlayingFragment;
 import com.rohan.app.permissions.Nammu;
 import com.rohan.app.permissions.PermissionCallback;
 import com.rohan.app.slidinguppanel.SlidingUpPanelLayout;
@@ -367,7 +368,11 @@ public class MainActivity extends BaseActivity  {
 
     }
 
-
+    public void getSong(int position) {
+        SlideUpNowPlayingFragment fragment =
+                (SlideUpNowPlayingFragment) getSupportFragmentManager().findFragmentById(R.id.quickcontrols_container);
+        fragment.setCurrSongs(position);
+    }
 
     private void startTrackingPosition() {
         timer = new Timer("MusicService Timer");
