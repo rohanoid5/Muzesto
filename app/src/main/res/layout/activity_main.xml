@@ -4,7 +4,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f4f4f4"
+    android:background="#f6f6f6"
     android:fitsSystemWindows="true">
 
     <include layout="@layout/include_list_viewpager" />

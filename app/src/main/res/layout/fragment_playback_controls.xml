@@ -75,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/controls"
+                android:layout_marginTop="4dp"
                 android:layout_centerInParent="true">
 
                 <LinearLayout
@@ -140,7 +141,7 @@
                     android:layout_marginLeft="6dp"
                     android:layout_marginRight="6dp"
                     android:maxHeight="2dp"
-                    android:paddingTop="18dp"
+                    android:paddingTop="4dp"
                     android:progress="30"
                     android:theme="@style/ThemeBaseDark"
                     android:tag="tint_accent_color" />
@@ -151,7 +152,7 @@
                 android:id="@+id/now_playing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"

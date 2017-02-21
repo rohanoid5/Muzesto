@@ -201,7 +201,7 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
             }
         });
 
-        nowPlaying.setOnClickListener(new View.OnClickListener() {
+        frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), NowPlayingActivity.class));

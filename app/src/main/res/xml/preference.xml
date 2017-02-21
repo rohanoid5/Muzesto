@@ -39,7 +39,7 @@
         app:spectrum_outlineWidth="0dp"/>
 
     <SwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="@string/pref_switch_key"
         android:title="@string/pref_switch_label"
         android:summary="@string/summary_widget"/>

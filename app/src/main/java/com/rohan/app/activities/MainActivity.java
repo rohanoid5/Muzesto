@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -28,6 +29,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -285,7 +287,7 @@ public class MainActivity extends BaseActivity  {
         floatWidget = sharedPrefs.getBoolean(getString(R.string.pref_switch_key), true);
 
         if (floatWidget) {
-            audioWidget.show(preferences.getInt(KEY_POSITION_X, 100), preferences.getInt(KEY_POSITION_Y, 100));
+            audioWidget.show(preferences.getInt(KEY_POSITION_X, getInitialX() - 200), preferences.getInt(KEY_POSITION_Y, getInitialY() - 300));
             floatWidget = false;
         }
         audioWidget.controller().onControlsClickListener(new AudioWidget.OnControlsClickListener() {
@@ -363,13 +365,33 @@ public class MainActivity extends BaseActivity  {
             public void onWidgetPositionChanged(int cx, int cy) {
                 // widget position change. Save coordinates here to reuse them next time AudioWidget.show(int, int) called.
                 preferences.edit()
-                        .putInt(KEY_POSITION_X, cx)
-                        .putInt(KEY_POSITION_Y, cy)
+                        .putInt(String.valueOf(getInitialX() - 200), cx)
+                        .putInt(String.valueOf(getInitialY() - 300), cy)
                         .apply();
             }
         });
         //getSong(MusicPlayer.getQueuePosition());
 
+    }
+
+    private int getInitialX() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        float defaultChatHeadXPosition = width;
+        return width;
+    }
+
+    private int getInitialY() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        float defaultChatHeadYPosition = height * 0.50f;
+        return height;
     }
 
     public void getSong(int position) {
