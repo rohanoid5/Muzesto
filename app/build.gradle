@@ -8,8 +8,8 @@ android {
         applicationId "rohanoid5.twar"
         minSdkVersion 18
         targetSdkVersion 25
-        versionCode 10
-//        versionName "0.020"
+        versionCode 11
+        versionName "2.1"
         //renderscript support mode is not supported for 21+ with gradle version 2.0
         renderscriptTargetApi 20
         renderscriptSupportModeEnabled true
