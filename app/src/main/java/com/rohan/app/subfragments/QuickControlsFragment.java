@@ -14,8 +14,10 @@ import android.graphics.drawable.TransitionDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,9 +70,11 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
     private TextView mArtist, mArtistExpanded;
     private ImageView mAlbumArt, mBlurredArt;
     private View rootView;
+    public static LinearLayout titleInfo;
     private FrameLayout frameLayout;
     private View playPauseWrapper, playPauseWrapperExpanded;
-    private MaterialIconView previous, next;
+    private AppCompatImageButton previous, next, hide;
+    FloatingActionButton nowPlaying;
     private boolean duetoplaypause = false;
     private final View.OnClickListener mPlayPauseListener = new View.OnClickListener() {
         @Override
@@ -136,14 +140,18 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
         mArtistExpanded = (TextView) rootView.findViewById(R.id.song_artist);
         mAlbumArt = (ImageView) rootView.findViewById(R.id.album_art_nowplayingcard);
         mBlurredArt = (ImageView) rootView.findViewById(R.id.blurredAlbumart);
-        next = (MaterialIconView) rootView.findViewById(R.id.next);
-        previous = (MaterialIconView) rootView.findViewById(R.id.previous);
+        next = (AppCompatImageButton) rootView.findViewById(R.id.next);
+        previous = (AppCompatImageButton) rootView.findViewById(R.id.previous);
         topContainer = rootView.findViewById(R.id.topContainer);
+        titleInfo = (LinearLayout) rootView.findViewById(R.id.title_info);
+        hide = (AppCompatImageButton) rootView.findViewById(R.id.hide_button);
+        nowPlaying = (FloatingActionButton) rootView.findViewById(R.id.now_playing);
 
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mProgress.getLayoutParams();
         mProgress.measure(0, 0);
         layoutParams.setMargins(0, -(mProgress.getMeasuredHeight() / 2), 0, 0);
         mProgress.setLayoutParams(layoutParams);
+        mProgress.setScaleY(3F);
 
         mPlayPause.setColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
         mPlayPauseExpanded.setColor(Color.WHITE);
@@ -193,7 +201,7 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
             }
         });
 
-        frameLayout.setOnClickListener(new View.OnClickListener() {
+        nowPlaying.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), NowPlayingActivity.class));
@@ -211,11 +219,11 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
         mTitleExpanded.setText(MusicPlayer.getTrackName());
         mArtistExpanded.setText(MusicPlayer.getArtistName());
         if (!duetoplaypause) {
-            ImageLoader.getInstance().displayImage(TimberUtils.getAlbumArtUri(MusicPlayer.getCurrentAlbumId()).toString(), mAlbumArt,
+            ImageLoader.getInstance().displayImage(TimberUtils
+                    .getAlbumArtUri(MusicPlayer.getCurrentAlbumId()).toString(), mBlurredArt,
                     new DisplayImageOptions.Builder().cacheInMemory(true)
-                            .showImageOnFail(R.drawable.ic_dribble)
-                            .resetViewBeforeLoading(true)
-                            .build(), new ImageLoadingListener() {
+                            .showImageOnFail(R.drawable.ic_dribble).resetViewBeforeLoading(true).build(),
+                    new ImageLoadingListener() {
                         @Override
                         public void onLoadingStarted(String imageUri, View view) {
 
@@ -224,16 +232,15 @@ public class QuickControlsFragment extends Fragment implements MusicStateListene
                         @Override
                         public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
                             Bitmap failedBitmap = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.ic_dribble);
-                            if (getActivity() != null)
-                                new setBlurredAlbumArt().execute(failedBitmap);
+                            //if (getActivity() != null)
+                            new setBlurredAlbumArt().execute(failedBitmap);
                         }
 
                         @Override
                         public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                            if (getActivity() != null)
-                                new setBlurredAlbumArt().execute(loadedImage);
+                            //if (getActivity() != null)
+                            new setBlurredAlbumArt().execute(loadedImage);
                             MainActivity.audioWidget.controller().albumCoverBitmap(getCroppedBitmap(loadedImage));
-
                         }
 
                         @Override

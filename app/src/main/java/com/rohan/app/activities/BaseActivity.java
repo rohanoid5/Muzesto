@@ -211,31 +211,43 @@ public class BaseActivity extends AppCompatActivity implements ServiceConnection
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
                 View nowPlayingCard = QuickControlsFragment.topContainer;
-                //nowPlayingCard.setAlpha(1 - slideOffset);
+                nowPlayingCard.setAlpha(1 - slideOffset);
             }
 
             @Override
             public void onPanelCollapsed(View panel) {
-               // View nowPlayingCard = QuickControlsFragment.topContainer;
-               // nowPlayingCard.setAlpha(1);
+                View nowPlayingCard = QuickControlsFragment.topContainer;
+                nowPlayingCard.setAlpha(1);
+                View nowPlayingTitle = QuickControlsFragment.titleInfo;
+                nowPlayingTitle.setVisibility(View.GONE);
             }
 
             @Override
             public void onPanelExpanded(View panel) {
-                //View nowPlayingCard = QuickControlsFragment.topContainer;
-               // nowPlayingCard.setAlpha(0);
+                View nowPlayingCard = QuickControlsFragment.topContainer;
+                nowPlayingCard.setAlpha(0);
+                View nowPlayingTitle = QuickControlsFragment.titleInfo;
+                nowPlayingTitle.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onPanelAnchored(View panel) {
-
+                View nowPlayingTitle = QuickControlsFragment.titleInfo;
+                nowPlayingTitle.setVisibility(View.GONE);
             }
 
             @Override
             public void onPanelHidden(View panel) {
-
+                View nowPlayingTitle = QuickControlsFragment.titleInfo;
+                nowPlayingTitle.setVisibility(View.GONE);
             }
         });
+    }
+
+    public void getSong(int position) {
+        SlideUpNowPlayingFragment fragment =
+                (SlideUpNowPlayingFragment) getSupportFragmentManager().findFragmentById(R.id.quickcontrols_container);
+        fragment.setCurrSongs(position);
     }
 
     private final static class PlaybackStatus extends BroadcastReceiver {
@@ -273,8 +285,8 @@ public class BaseActivity extends AppCompatActivity implements ServiceConnection
 
         @Override
         protected String doInBackground(String... params) {
-            //QuickControlsFragment fragment1 = new QuickControlsFragment();
-            SlideUpNowPlayingFragment fragment1 = new SlideUpNowPlayingFragment();
+            QuickControlsFragment fragment1 = new QuickControlsFragment();
+            //SlideUpNowPlayingFragment fragment1 = new SlideUpNowPlayingFragment();
             FragmentManager fragmentManager1 = getSupportFragmentManager();
             fragmentManager1.beginTransaction()
                     .replace(R.id.quickcontrols_container, fragment1).commitAllowingStateLoss();
@@ -283,13 +295,14 @@ public class BaseActivity extends AppCompatActivity implements ServiceConnection
 
         @Override
         protected void onPostExecute(String result) {
-            /*QuickControlsFragment.topContainer.setOnClickListener(new View.OnClickListener() {
+            QuickControlsFragment.topContainer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     NavigationUtils.navigateToNowplaying(BaseActivity.this, false);
                 }
-            });*/
+            });
             //SlideUpNowPlayingFragment.setCurrSongs(9);
+            //getSong(MusicPlayer.getQueuePosition());
         }
 
         @Override

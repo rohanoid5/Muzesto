@@ -48,9 +48,11 @@ import com.rohan.app.fragments.MainFragment;
 import com.rohan.app.fragments.PlaylistFragment;
 import com.rohan.app.fragments.QueueFragment;
 import com.rohan.app.fragments.SlideUpNowPlayingFragment;
+import com.rohan.app.fragments.ViewPagerSongsFragment;
 import com.rohan.app.permissions.Nammu;
 import com.rohan.app.permissions.PermissionCallback;
 import com.rohan.app.slidinguppanel.SlidingUpPanelLayout;
+import com.rohan.app.subfragments.QuickControlsFragment;
 import com.rohan.app.utils.Constants;
 import com.rohan.app.utils.Helpers;
 import com.rohan.app.utils.NavigationUtils;
@@ -71,6 +73,7 @@ public class MainActivity extends BaseActivity  {
     private static final long UPDATE_INTERVAL = 1000;
     private static final String KEY_POSITION_X = "position_x";
     private static final String KEY_POSITION_Y = "position_y";
+    private static final int TIME_INTERVAL = 2000;
     static final String YES_ACTION = "Sone Actions";
 
     private static final int OVERLAY_PERMISSION_REQ_CODE = 1 ;
@@ -79,6 +82,7 @@ public class MainActivity extends BaseActivity  {
     private boolean shouldOpenFragment;
     private static MainActivity sMainActivity;
     private boolean paused;
+    private long mBackPressed;
     com.rohan.app.slidinguppanel.SlidingUpPanelLayout panelLayout;
     NavigationView navigationView;
     TextView songtitle, songartist;
@@ -364,7 +368,7 @@ public class MainActivity extends BaseActivity  {
                         .apply();
             }
         });
-
+        //getSong(MusicPlayer.getQueuePosition());
 
     }
 
@@ -482,9 +486,16 @@ public class MainActivity extends BaseActivity  {
 
         if (panelLayout.isPanelExpanded())
             panelLayout.collapsePanel();
-        else {
-            super.onBackPressed();
-        }
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (mBackPressed + TIME_INTERVAL < System.currentTimeMillis()) {
+            Toast.makeText(getBaseContext(), "Press again to exit.", Toast.LENGTH_SHORT).show();
+        } else
+            finishAffinity();
+        mBackPressed = System.currentTimeMillis();
 
     }
 

@@ -216,7 +216,7 @@ public class SongsListAdapter extends RecyclerView.Adapter<SongsListAdapter.Item
                     MusicPlayer.playAll(mContext, songIDs, getAdapterPosition(), -1, TimberUtils.IdType.NA, false);
                     Log.e("Songs Position", String.valueOf(mContext));
                     MainActivity mainActivity = (MainActivity) mContext;
-                    mainActivity.getSong(MusicPlayer.getQueuePosition());
+//                    mainActivity.getSong(MusicPlayer.getQueuePosition());
                     Handler handler1 = new Handler();
                     handler1.postDelayed(new Runnable() {
                         @Override

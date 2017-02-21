@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -44,6 +45,8 @@ import com.rohan.app.utils.TimberUtils;
 import com.rohan.app.widgets.PlayPauseButton;
 
 import net.steamcrafted.materialiconlib.MaterialIconView;
+
+import jp.wasabeef.blurry.Blurry;
 
 /**
  * Created by rohan on 17-02-2017.
@@ -144,7 +147,7 @@ public class ViewPagerSongsFragment extends Fragment implements MusicStateListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_view_pager_now_playing, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_view_pager_now_playing, container, false);
         this.rootView = rootView;
 
         frameLayout = (FrameLayout) rootView.findViewById(R.id.quick_controls_frame);
@@ -179,6 +182,11 @@ public class ViewPagerSongsFragment extends Fragment implements MusicStateListen
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 if (b) {
                     MusicPlayer.seek((long) i);
+                }
+                if (i == MusicPlayer.duration()) {
+                    Toast.makeText(getActivity(), "END", Toast.LENGTH_SHORT).show();
+                    MainActivity mainActivity = (MainActivity) getActivity();
+                    mainActivity.getSong(MusicPlayer.getQueuePosition());
                 }
             }
 
@@ -222,13 +230,20 @@ public class ViewPagerSongsFragment extends Fragment implements MusicStateListen
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), NowPlayingActivity.class));
+                //startActivity(new Intent(getActivity(), NowPlayingActivity.class));
             }
         });
 
         ((BaseActivity) getActivity()).setMusicStateListenerListener(this);
 
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.getSong(MusicPlayer.getQueuePosition());
+
         return rootView;
+    }
+
+    public void hideTop() {
+        topContainer.setVisibility(View.GONE);
     }
 
     public void updateNowplayingCard() {
@@ -239,7 +254,32 @@ public class ViewPagerSongsFragment extends Fragment implements MusicStateListen
         mArtistExpanded.setText(song.artistName);
         ImageLoader.getInstance().displayImage(TimberUtils.getAlbumArtUri(song.albumId).toString(), mBlurredArt,
                 new DisplayImageOptions.Builder().cacheInMemory(true)
-                        .showImageOnFail(R.drawable.ic_dribble).resetViewBeforeLoading(true).build());
+                        .showImageOnFail(R.drawable.ic_dribble).resetViewBeforeLoading(true).build(),
+                new ImageLoadingListener() {
+                    @Override
+                    public void onLoadingStarted(String imageUri, View view) {
+
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        Bitmap failedBitmap = ImageLoader.getInstance().loadImageSync("drawable://" + R.drawable.ic_dribble);
+                        //if (getActivity() != null)
+                            //new setBlurredAlbumArt().execute(failedBitmap);
+                    }
+
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        //if (getActivity() != null)
+                            //new setBlurredAlbumArt().execute(loadedImage);
+                        MainActivity.audioWidget.controller().albumCoverBitmap(getCroppedBitmap(loadedImage));
+                    }
+
+                    @Override
+                    public void onLoadingCancelled(String imageUri, View view) {
+
+                    }
+                });
         duetoplaypause = false;
         mProgress.setMax((int) song.duration);
         mSeekBar.setMax((int) song.duration);

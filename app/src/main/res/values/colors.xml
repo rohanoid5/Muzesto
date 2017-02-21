@@ -40,7 +40,7 @@
         <!--<item>@color/light_deep</item>-->
     </array>
 
-    <color name="black">#000000</color>
+    <color name="black">#44000000</color>
     <color name="jet">#222222</color>
     <color name="oil">#333333</color>
     <color name="monsoon">#777777</color>
@@ -135,5 +135,6 @@
     <color name="vpi__bright_foreground_inverse_holo_light">
         @color/vpi__bright_foreground_holo_dark
     </color>
+    <color name="alphaPrimary">#40000000</color>
 
 </resources>
