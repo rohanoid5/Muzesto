@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/blurredAlbumart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_dribble"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#44000000" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:id="@+id/title_info"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                tools:text="Robotaki"
+                android:id="@+id/song_artist"
+                android:padding="2dp"
+                android:layout_marginBottom="4dp"
+                android:background="@android:color/black"
+                android:textColor="@android:color/secondary_text_dark"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:id="@+id/song_title"
+                tools:text="Full automation"
+                android:padding="2dp"
+                android:background="@android:color/black"
+                android:textColor="@android:color/white"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/hide_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:padding="24dp"
+            android:textColor="@color/white"
+            android:src="@drawable/ic_keyboard_arrow_down_white_36dp"
+            android:background="?selectableItemBackgroundBorderless" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/controls"
+            android:layout_centerInParent="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_margin="16dp">
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/previous"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="24dp"
+                    android:textColor="@color/white"
+                    android:src="@drawable/ic_skip_previous_white_36dp"
+                    android:background="?selectableItemBackgroundBorderless" />
+
+                <FrameLayout
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1">
+
+                    <com.rohan.app.widgets.PlayPauseButton
+                        android:id="@+id/playpause"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
+                        android:layout_gravity="center" />
+
+                    <View
+                        android:id="@+id/playpausewrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/selectableItemBackgroundBorderless" />
+
+                </FrameLayout>
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="24dp"
+                    android:textColor="@color/white"
+                    android:src="@drawable/ic_skip_next_white_36dp"
+                    android:background="?selectableItemBackgroundBorderless" />
+
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/song_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:maxHeight="2dp"
+                android:paddingTop="18dp"
+                android:progress="30"
+                android:tag="tint_accent_color" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/now_playing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/white"
+            android:src="@drawable/ic_keyboard_arrow_right_white_36dp"
+            android:background="?selectableItemBackgroundBorderless" />
+
+
+    </RelativeLayout>
+
+</FrameLayout>
