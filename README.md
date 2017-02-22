@@ -4,7 +4,7 @@ Muzesto is an open source android music player. Muzesto emphasizes on the visual
 <a href="https://play.google.com/store/apps/details?id=rohanoid5.twar"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height=50px/></a>
 
 # Screenshots
-![](https://raw.githubusercontent.com/rohanoid5/Muzesto/master/Screenshot/Screenshot_2016-06-22-18-15-19-067.jpg)
+![](https://raw.githubusercontent.com/rohanoid5/Muzesto/master/Screenshot/Screenshot_1487691478.png)
 ![](https://raw.githubusercontent.com/rohanoid5/Muzesto/master/Screenshot/Screenshot_2016-06-22-18-16-29-968.jpg)
 ![](https://raw.githubusercontent.com/rohanoid5/Muzesto/master/Screenshot/Screenshot_2016-06-22-18-17-02-709.jpg)
 ![](https://raw.githubusercontent.com/rohanoid5/Muzesto/master/Screenshot/Screenshot_2016-06-22-18-17-52-647.jpg)
