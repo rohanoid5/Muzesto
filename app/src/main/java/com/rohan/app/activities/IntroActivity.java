@@ -37,7 +37,7 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
 
         PrefManager prefManager = new PrefManager(this);
-        if (prefManager.isFirstTimeLaunch()) {
+        if (!prefManager.isFirstTimeLaunch()) {
             prefManager.setFirstTimeLaunch(false);
             startActivity(new Intent(this, MainActivity.class));
             return;

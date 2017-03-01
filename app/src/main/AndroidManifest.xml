@@ -94,7 +94,7 @@
             android:theme="@style/ThemeBaseDark" />
         <activity
             android:name=".activities.NowPlayingActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/ThemeBaseDark"
             android:screenOrientation="portrait"/>
         <activity android:name=".activities.IntroActivity"
             android:theme="@style/ThemeBaseDark"
